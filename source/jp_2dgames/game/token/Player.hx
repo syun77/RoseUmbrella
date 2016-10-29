@@ -1,5 +1,6 @@
 package jp_2dgames.game.token;
 
+import jp_2dgames.lib.DirUtil;
 import flixel.addons.effects.FlxTrail;
 import jp_2dgames.lib.Snd;
 import jp_2dgames.lib.MyColor;
@@ -9,7 +10,6 @@ import jp_2dgames.lib.Input;
 import flixel.FlxG;
 import flixel.FlxObject;
 import openfl.display.BlendMode;
-import jp_2dgames.lib.DirUtil;
 import flixel.FlxSprite;
 
 /**
@@ -146,37 +146,6 @@ class Player extends Token {
   }
 
   /**
-   * アクティブ状態の切り替え
-   **/
-  public function setActive(b:Bool):Void {
-    if(b) {
-      color = FlxColor.WHITE;
-      immovable = false;
-      allowCollisions = FlxObject.ANY;
-      moves = true;
-      animation.resume();
-      // 速度クリア
-      velocity.set();
-      // 切り替え演出
-      _light.visible = true;
-      Particle.start(PType.Ring, xcenter, ycenter, FlxColor.WHITE);
-      _trail.resetTrail();
-      _trail.visible = true;
-    }
-    else {
-      color = FlxColor.GRAY;
-      immovable = true;
-      allowCollisions = FlxObject.UP;
-      moves = false;
-      animation.pause();
-      // 速度クリア
-      velocity.set();
-      _light.visible = false;
-      _trail.visible = false;
-    }
-  }
-
-  /**
    * 更新
    **/
   public override function update(elapsed:Float):Void {
@@ -212,11 +181,17 @@ class Player extends Token {
     // 速度設定後に更新しないとめり込む
     super.update(elapsed);
 
+    // 傘の座標を更新
+    _updateUmbrella();
+
     // ライト更新
     _updateLight();
 
   }
 
+  /**
+   * キー入力
+   **/
   function _input():Void {
 
     // キャラクター状態
@@ -231,7 +206,7 @@ class Player extends Token {
           // 飛び降りる
           _tJumpDown = TIMER_JUMPDOWN;
         }
-        else if(Input.press.B) {
+        else if(Input.press.A) {
           // ジャンプ
           velocity.y = JUMP_VELOCITY;
           Snd.playSe("jump");
@@ -251,6 +226,11 @@ class Player extends Token {
           _state = State.Standing;
         }
     }
+
+    // 傘の出し入れ
+    if(Input.press.B) {
+      _umbrella.open(_lastdir);
+    }
   }
 
   /**
@@ -265,6 +245,13 @@ class Player extends Token {
     if(_tJumpDown > 0) {
       _tJumpDown--;
     }
+  }
+
+  /**
+   * 傘の座標を更新
+   **/
+  function _updateUmbrella():Void {
+    _umbrella.proc(x-offset.x, y, _lastdir);
   }
 
   /**

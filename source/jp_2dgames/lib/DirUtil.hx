@@ -1,5 +1,6 @@
 package jp_2dgames.lib;
 
+import flixel.math.FlxVector;
 import flixel.FlxG;
 import flixel.math.FlxPoint;
 
@@ -47,8 +48,8 @@ class DirUtil {
   /**
    * 移動ベクトルを取得する
    **/
-  public static function getVector(dir:Dir):FlxPoint {
-    var pt = FlxPoint.get();
+  public static function getVector(dir:Dir):FlxVector {
+    var pt = FlxVector.get();
     switch(dir) {
       case Dir.Left:  pt.set(-1, 0);
       case Dir.Up:    pt.set(0,  -1);
