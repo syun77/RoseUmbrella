@@ -76,6 +76,7 @@ class Player extends Token {
   var _tJumpDown:Int = 0; // 飛び降りタイマー
   var _dir:Dir; // 向いている方向
   var _lastdir:Dir; // 最後に押した方向
+  var _bSlow:Bool = false;
 
   /**
    * 飛び降り中かどうか
@@ -117,10 +118,8 @@ class Player extends Token {
     _lastdir = Dir.Right;
 
     // ■移動パラメータ設定
-    // 速度制限を設定
-    maxVelocity.set(MAX_VELOCITY_X, MAX_VELOCITY_Y);
-    // 重力を設定
-    _setGravity();
+    // 重力を更新
+    _updateGravity();
     // 移動量の減衰値を設定
     drag.x = DRAG_X;
 
@@ -131,14 +130,33 @@ class Player extends Token {
     // デバッグ
     FlxG.watch.add(this, "_state", "Player.state");
     FlxG.watch.add(this, "_anim", "Player.anim");
+    FlxG.watch.add(this, "_bSlow");
   }
 
   /**
    * 重力を設定
    **/
-  function _setGravity():Void {
+  function _updateGravity():Void {
+    var gravity:Float = GRAVITY;
+    var maxVelocityY:Float = MAX_VELOCITY_Y;
+
+    _bSlow = false;
+    if(_umbrella.isOpen()) {
+      if(_umbrella.dir == Dir.Up) {
+        if(velocity.y > 0 && _state == State.Jumping) {
+          // 傘を上向きに開いていたら速度低下
+          gravity *= 0.2;
+          maxVelocityY *= 0.2;
+          _bSlow = true;
+        }
+      }
+    }
+
     // 重力加速度を設定
-    acceleration.y = GRAVITY;
+    acceleration.y = gravity;
+    // 速度制限を設定
+    maxVelocity.set(MAX_VELOCITY_X, maxVelocityY);
+
   }
 
   public function isActive():Bool {
@@ -183,6 +201,9 @@ class Player extends Token {
 
     // 傘の座標を更新
     _updateUmbrella();
+
+    // 重力を更新
+    _updateGravity();
 
     // ライト更新
     _updateLight();

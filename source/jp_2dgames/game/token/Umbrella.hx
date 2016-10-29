@@ -53,6 +53,13 @@ class Umbrella extends Token {
   }
 
   /**
+   * 傘を開いているかどうか
+   **/
+  public function isOpen():Bool {
+    return exists;
+  }
+
+  /**
    * 座標を更新
    **/
   public function proc(xroot:Float, yroot:Float, newDir:Dir):Void {
