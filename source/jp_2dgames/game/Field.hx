@@ -1,10 +1,5 @@
 package jp_2dgames.game;
 
-import jp_2dgames.game.token.Arrow;
-import jp_2dgames.game.token.Item;
-import jp_2dgames.game.token.Spike;
-import jp_2dgames.game.token.Floor;
-import jp_2dgames.lib.DirUtil.Dir;
 import flixel.math.FlxPoint;
 import flash.geom.Point;
 import flixel.util.FlxColor;
@@ -51,10 +46,6 @@ class Field {
   static inline var CHIP_TRIGGER_SPIKE_DOWN:Int = 16; // 停止しているトゲを落とす
   static inline var CHIP_HOOK:Int   = 17; // ロープを引っかけるフック
   static inline var CHIP_ITEM:Int   = 18; // コイン
-  static inline var CHIP_ARROW_LEFT:Int  = 21; // 矢印(右)
-  static inline var CHIP_ARROW_UP:Int    = 22; // 矢印(上)
-  static inline var CHIP_ARROW_RIGHT:Int = 23; // 矢印(左)
-  static inline var CHIP_ARROW_DOWN:Int  = 24; // 矢印(下)
   static inline var CHIP_SPIKE_UP:Int    = 29; // トゲ(上に移動)
   static inline var CHIP_SPIKE_DOWN:Int  = 30; // トゲ(下に移動)
   static inline var CHIP_SPIKE_LEFT:Int  = 31; // トゲ(左に移動)
@@ -311,28 +302,20 @@ class Field {
       switch(v) {
         case CHIP_WALL:
         case CHIP_FLOOR:
-          Floor.add(x, y);
+          //Floor.add(x, y);
         /*
         case CHIP_FLOOR2:
           Floor.add(true, x, y);
         */
         case CHIP_SPIKE:
-          Spike.add(Dir.None, x, y);
+          //Spike.add(Dir.None, x, y);
         /*
         case CHIP_HOOK:
           Hook.add(x, y);
         */
         case CHIP_ITEM:
-          Item.add(x, y);
+          //Item.add(x, y);
 
-        case CHIP_ARROW_LEFT:
-          Arrow.add(x, y, Dir.Left);
-        case CHIP_ARROW_UP:
-          Arrow.add(x, y, Dir.Up);
-        case CHIP_ARROW_RIGHT:
-          Arrow.add(x, y, Dir.Right);
-        case CHIP_ARROW_DOWN:
-          Arrow.add(x, y, Dir.Down);
         /*
         case CHIP_SPIKE_UP:
           Spike.add(Dir.Up, x, y);

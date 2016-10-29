@@ -1,5 +1,8 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.token.Door;
+import flixel.tile.FlxTilemap;
+import jp_2dgames.game.token.Player;
 import flash.system.System;
 import jp_2dgames.game.gui.GameoverUI;
 import flixel.FlxState;
@@ -31,6 +34,9 @@ class PlayState extends FlxState {
   var _state:State = State.Init;
 
   var _seq:SeqMgr;
+  var _player:Player;
+  var _field:FlxTilemap;
+  var _door:Door;
 
   /**
    * 生成
@@ -40,13 +46,23 @@ class PlayState extends FlxState {
     // 初期化
     Global.initLevel();
 
+    // マップ読み込み
+    Field.loadLevel(Global.level);
+
+    // マップ作成
+    _field = Field.createWallTile();
+    this.add(_field);
+
+    // プレイヤー作成
+    _player = new Player();
+    this.add(_player);
+
     // パーティクル生成
     Particle.createParent(this);
     ParticleBmpFont.createParent(this);
 
     // シーケンス管理生成
-//    _seq = new SeqMgr(_player, _wall);
-//    this.add(_seq);
+    _seq = new SeqMgr(_player, _field, _door);
   }
 
   /**
@@ -101,7 +117,6 @@ class PlayState extends FlxState {
    **/
   function _updateMain():Void {
 
-    /*
     switch(_seq.proc()) {
       case SeqMgr.RET_DEAD:
         // ゲームオーバー
@@ -112,7 +127,6 @@ class PlayState extends FlxState {
         _state = State.Stageclear;
         Snd.stopMusic();
     }
-    */
   }
 
   /**
