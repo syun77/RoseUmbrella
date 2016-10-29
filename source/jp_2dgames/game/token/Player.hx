@@ -58,6 +58,11 @@ class Player extends Token {
   // ----------------------------------------
 
   // ======================================
+  // ■プロパティ
+  public var light(get, never):FlxSprite;
+  public var trail(get, never):FlxSprite;
+  public var umbrella(get, never):FlxSprite;
+  // ======================================
   // ■メンバ変数
   var _state:State; // キャラクター状態
   var _anim:AnimState; // アニメーション状態
@@ -67,6 +72,7 @@ class Player extends Token {
   var _animPrev:AnimState;
   var _light:FlxSprite;
   var _trail:FlxTrail;
+  var _umbrella:Umbrella;
   var _tJumpDown:Int = 0; // 飛び降りタイマー
   var _dir:Dir; // 向いている方向
   var _lastdir:Dir; // 最後に押した方向
@@ -78,22 +84,19 @@ class Player extends Token {
     return _tJumpDown > 0;
   }
 
-  public function getLight():FlxSprite {
-    return _light;
-  }
-  public function getTrail():FlxTrail {
-    return _trail;
-  }
 
   /**
    * コンストラクタ
    **/
-  public function new(X:Float, Y:Float) {
+  public function new(X:Float, Y:Float, umbrella:Umbrella) {
     super(X, Y);
     loadGraphic(AssetPaths.IMAGE_PLAYER, true);
     // アニメーション登録
     _registerAnim();
     _playAnim(AnimState.Standby);
+
+    // 傘
+    _umbrella = umbrella;
 
     // トレイル
     _trail = new FlxTrail(this, null, 5);
@@ -365,5 +368,14 @@ class Player extends Token {
   // ■アクセサ
   override public function get_radius():Float {
     return 6;
+  }
+  function get_light():FlxSprite {
+    return _light;
+  }
+  function get_trail():FlxTrail {
+    return _trail;
+  }
+  function get_umbrella():Umbrella {
+    return _umbrella;
   }
 }

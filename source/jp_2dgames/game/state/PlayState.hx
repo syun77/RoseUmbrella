@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.token.Umbrella;
 import jp_2dgames.game.token.Door;
 import flixel.tile.FlxTilemap;
 import jp_2dgames.game.token.Player;
@@ -34,9 +35,6 @@ class PlayState extends FlxState {
   var _state:State = State.Init;
 
   var _seq:SeqMgr;
-  var _player:Player;
-  var _field:FlxTilemap;
-  var _door:Door;
 
   /**
    * 生成
@@ -50,25 +48,39 @@ class PlayState extends FlxState {
     Field.loadLevel(Global.level);
 
     // マップ作成
-    _field = Field.createWallTile();
-    this.add(_field);
+    var field = Field.createWallTile();
+    this.add(field);
 
     // プレイヤー生成
+    var player:Player;
     {
+      var umbrella = new Umbrella();
       var pt = Field.getStartPosition();
-      _player = new Player(pt.x, pt.y);
-      this.add(_player.getLight());
-      this.add(_player);
+      player = new Player(pt.x, pt.y, umbrella);
+      this.add(player.light);
+      this.add(player);
+      this.add(umbrella);
       pt.put();
     }
 
+    // ゴール
+    var door:Door;
+    {
+      var pt = Field.getGoalPosition();
+      door = new Door(pt.x, pt.y);
+      this.add(door);
+      pt.put();
+    }
 
     // パーティクル生成
     Particle.createParent(this);
     ParticleBmpFont.createParent(this);
 
     // シーケンス管理生成
-    _seq = new SeqMgr(_player, _field, _door);
+    _seq = new SeqMgr(player, field, door);
+
+    // ドアを有効にする
+    door.setEnable();
   }
 
   /**
@@ -156,10 +168,10 @@ class PlayState extends FlxState {
       // 強制終了
       System.exit(0);
     }
-    if(FlxG.keys.justPressed.L) {
+    if(FlxG.keys.justPressed.R) {
       // リスタート
-//      FlxG.resetState();
-      FlxG.switchState(new PlayInitState());
+      FlxG.resetState();
+//      FlxG.switchState(new PlayInitState());
     }
 #end
   }
