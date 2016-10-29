@@ -31,6 +31,11 @@
 	<classpath name="source" />
 	<assets path="assets" />
 
+	<!-- SE -->
+	<assets path="assets/sounds">
+		<sound path="jump.wav" id="jump"/>
+	</assets>
+
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />

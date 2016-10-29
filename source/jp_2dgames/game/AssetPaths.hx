@@ -1,5 +1,7 @@
 package jp_2dgames.game;
 class AssetPaths {
-  public static inline var IMAGE_EFFECT:String = "assets/images/effect.png";
-  public static inline var IMAGE_BUTTON:String = "assets/images/button.png";
+  public static inline var IMAGE_PLAYER = "assets/images/player.png";
+  public static inline var IMAGE_LIGHT  = "assets/images/light.png";
+  public static inline var IMAGE_EFFECT = "assets/images/effect.png";
+  public static inline var IMAGE_BUTTON = "assets/images/button.png";
 }

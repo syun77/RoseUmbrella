@@ -53,9 +53,15 @@ class PlayState extends FlxState {
     _field = Field.createWallTile();
     this.add(_field);
 
-    // プレイヤー作成
-    _player = new Player();
-    this.add(_player);
+    // プレイヤー生成
+    {
+      var pt = Field.getStartPosition();
+      _player = new Player(pt.x, pt.y);
+      this.add(_player.getLight());
+      this.add(_player);
+      pt.put();
+    }
+
 
     // パーティクル生成
     Particle.createParent(this);
