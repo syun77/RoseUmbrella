@@ -14,7 +14,8 @@ class Umbrella extends Token {
   public var dir(get, never):Dir;
 
   // ■フィールド
-  var _dir:Dir;
+  var _dir:Dir; // 傘の方向
+  var _canOpen:Bool; // 傘を開くことができるかどうか
 
   /**
    * コンストラクタ
@@ -41,18 +42,35 @@ class Umbrella extends Token {
   }
 
   /**
+   * 傘が使えるようになる
+   **/
+  public function activate():Void {
+    _canOpen = true;
+  }
+
+  /**
    * 傘を開く
    **/
   public function open(dir:Dir):Void {
     if(exists == false) {
-      // 開く
-      revive();
-      _dir = dir;
+      if(_canOpen) {
+        // 開く
+        revive();
+        _dir = dir;
+      }
     }
     else {
       // 閉じる
-      kill();
+      close();
     }
+  }
+
+  /**
+   * 傘を閉じる
+   **/
+  public function close():Void {
+    kill();
+    _canOpen = false;
   }
 
   /**
@@ -60,6 +78,19 @@ class Umbrella extends Token {
    **/
   public function isOpen():Bool {
     return exists;
+  }
+
+  /**
+   * 上方向に傘を開いているかどうか
+   **/
+  public function isOpenUpside():Bool {
+    if(isOpen()) {
+      if(_dir == Dir.Up) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**

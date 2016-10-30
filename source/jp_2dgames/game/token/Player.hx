@@ -220,6 +220,10 @@ class Player extends Token {
     // キャラクター状態
     switch(_state) {
       case State.Standing:
+
+        // 傘が使えるようになる
+        _umbrella.activate();
+
         // 左右に移動
         _moveLR();
         if(isTouching(FlxObject.FLOOR)){
@@ -231,8 +235,7 @@ class Player extends Token {
         }
         else if(Input.press.A) {
           // ジャンプ
-          velocity.y = JUMP_VELOCITY;
-          Snd.playSe("jump");
+          _jump();
         }
 
         if(isTouching(FlxObject.FLOOR) == false) {
@@ -244,6 +247,18 @@ class Player extends Token {
         _moveLR();
 
         _anim = AnimState.Jump;
+
+        if(Input.press.A) {
+          if(_umbrella.isOpenUpside()) {
+            // 上方向に傘を開いていたら空中ジャンプできる
+            // 傘は閉じる
+            _umbrella.close();
+            // 空中重力無効
+            _updateGravity();
+            _jump();
+          }
+        }
+
         if(isTouching(FlxObject.FLOOR)) {
           // 着地した
           _state = State.Standing;
@@ -268,6 +283,14 @@ class Player extends Token {
     if(_tJumpDown > 0) {
       _tJumpDown--;
     }
+  }
+
+  /**
+   * ジャンプする
+   **/
+  function _jump():Void {
+    velocity.y = JUMP_VELOCITY;
+    Snd.playSe("jump");
   }
 
   /**
