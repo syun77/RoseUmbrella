@@ -1,5 +1,6 @@
 package jp_2dgames.game.token;
 
+import jp_2dgames.lib.MyColor;
 import flixel.util.FlxColor;
 import jp_2dgames.game.particle.Particle;
 import jp_2dgames.lib.DirUtil;
@@ -128,7 +129,7 @@ class Umbrella extends Token {
 
     if(_bEffect) {
       // エフェクト再生開始
-      Particle.start(PType.Ring, xcenter, ycenter, FlxColor.WHITE);
+      Particle.start(PType.Ring, xcenter, ycenter, MyColor.CRIMSON);
       _bEffect = false;
     }
   }

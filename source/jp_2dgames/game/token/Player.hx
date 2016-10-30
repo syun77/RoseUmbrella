@@ -306,6 +306,7 @@ class Player extends Token {
   function _jump():Void {
     velocity.y = JUMP_VELOCITY;
     Snd.playSe("jump");
+    Particle.start(PType.Ring4, xcenter, bottom, FlxColor.WHITE);
   }
 
   /**

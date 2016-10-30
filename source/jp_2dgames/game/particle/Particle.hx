@@ -20,6 +20,7 @@ enum PType {
   Ring;    // リング
   Ring2;   // リング2
   Ring3;   // リング3(逆再生)
+  Ring4;   // リング4(横につぶす)
 }
 
 /**
@@ -34,6 +35,7 @@ class Particle extends FlxSprite {
   static inline var SCALE_RING:Float    = 1 * SCALE_BASE;
   static inline var SCALE_RING2:Float   = 0.5 * SCALE_BASE;
   static inline var SCALE_RING3:Float   = 8 * SCALE_BASE;
+  static inline var SCALE_RING4:Float   = 0.5 * SCALE_BASE;
 
   static inline var SPEED_RATIO:Float   = 0.5;
 
@@ -84,7 +86,7 @@ class Particle extends FlxSprite {
           p.color = color;
           dir += FlxG.random.float(40, 50);
         }
-      case PType.Ring, PType.Ring2, PType.Ring3:
+      case PType.Ring, PType.Ring2, PType.Ring3, PType.Ring4:
         var t = 60;
         var p:Particle = parent.recycle();
         p.init(type, t, X, Y, 0, 0);
@@ -133,6 +135,7 @@ class Particle extends FlxSprite {
     animation.add('${PType.Ring}', [1], 2);
     animation.add('${PType.Ring2}', [1], 2);
     animation.add('${PType.Ring3}', [1], 2);
+    animation.add('${PType.Ring4}', [1], 2);
     animation.add('${PType.Spiral}', [0], 1);
 
     // 中心を基準に描画
@@ -174,7 +177,7 @@ class Particle extends FlxSprite {
         var sc = SCALE_BALL2;
         scale.set(sc, sc);
         acceleration.y = 300 * SPEED_RATIO;
-      case PType.Ring, PType.Ring2, PType.Ring3:
+      case PType.Ring, PType.Ring2, PType.Ring3, PType.Ring4:
         scale.set(0, 0);
         acceleration.y = 0;
         alpha = _timer / _tStart;
@@ -214,6 +217,11 @@ class Particle extends FlxSprite {
         _timer = Std.int(_timer * 0.93);
         var sc = SCALE_RING3 * _timer / _tStart;
         scale.set(sc, sc);
+        alpha = FlxEase.expoOut(_timer / _tStart);
+      case PType.Ring4:
+        _timer = Std.int(_timer * 0.93);
+        var sc = SCALE_RING4 * (_tStart - _timer) / _tStart;
+        scale.set(sc, sc/4);
         alpha = FlxEase.expoOut(_timer / _tStart);
       case PType.Spiral:
         _timer--;
