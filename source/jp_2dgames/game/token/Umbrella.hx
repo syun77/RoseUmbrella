@@ -1,5 +1,7 @@
 package jp_2dgames.game.token;
 
+import flixel.util.FlxColor;
+import jp_2dgames.game.particle.Particle;
 import jp_2dgames.lib.DirUtil;
 
 /**
@@ -16,6 +18,7 @@ class Umbrella extends Token {
   // ■フィールド
   var _dir:Dir; // 傘の方向
   var _canOpen:Bool; // 傘を開くことができるかどうか
+  var _bEffect:Bool = false;
 
   /**
    * コンストラクタ
@@ -56,6 +59,7 @@ class Umbrella extends Token {
       if(_canOpen) {
         // 開く
         openForce(dir);
+        _bEffect = true;
       }
     }
     else {
@@ -121,6 +125,12 @@ class Umbrella extends Token {
     x = xroot + v.x;
     y = yroot + v.y;
     v.put();
+
+    if(_bEffect) {
+      // エフェクト再生開始
+      Particle.start(PType.Ring, xcenter, ycenter, FlxColor.WHITE);
+      _bEffect = false;
+    }
   }
 
   // アクセサ関数

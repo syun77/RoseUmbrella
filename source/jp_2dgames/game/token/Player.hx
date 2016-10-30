@@ -278,8 +278,10 @@ class Player extends Token {
     }
     else {
       if(Input.on.DOWN) {
-        // 下方向に出す
-        _umbrella.openForce(Dir.Down);
+        if(_state == State.Jumping) {
+          // 下方向に出す
+          _umbrella.openForce(Dir.Down);
+        }
       }
     }
   }

@@ -27,7 +27,7 @@ enum PType {
  **/
 class Particle extends FlxSprite {
 
-  static inline var SCALE_BASE:Float    = 2.0;
+  static inline var SCALE_BASE:Float    = 1.0;
   static inline var SCALE_BALL:Float    = 0.25 * SCALE_BASE;
   static inline var SCALE_BALL2:Float   = 0.05 * SCALE_BASE;
   static inline var SCALE_SPIRAL:Float  = 0.25 * SCALE_BASE;
