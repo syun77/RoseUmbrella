@@ -125,7 +125,9 @@ class Player extends Token {
 
     // 当たり判定を小さくする
     width = 8;
+    height = 12;
     offset.x = 4;
+    offset.y = 2;
 
     // デバッグ
     FlxG.watch.add(this, "_state", "Player.state");
@@ -272,7 +274,7 @@ class Player extends Token {
    * 傘の座標を更新
    **/
   function _updateUmbrella():Void {
-    _umbrella.proc(x-offset.x, y, _lastdir);
+    _umbrella.proc(x-offset.x, y-offset.y, _lastdir);
   }
 
   /**

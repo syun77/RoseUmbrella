@@ -7,6 +7,9 @@ import jp_2dgames.lib.DirUtil;
  **/
 class Umbrella extends Token {
 
+  // ■定数
+  static inline var OFFSET_DISTANCE:Float = 12.0;
+
   // ■プロパティ
   public var dir(get, never):Dir;
 
@@ -76,7 +79,7 @@ class Umbrella extends Token {
     angle = -DirUtil.toAngle(_dir);
 
     var v = DirUtil.getVector(_dir);
-    v.scale(12);
+    v.scale(OFFSET_DISTANCE);
     x = xroot + v.x;
     y = yroot + v.y;
     v.put();

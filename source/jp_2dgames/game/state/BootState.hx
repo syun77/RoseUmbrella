@@ -10,10 +10,6 @@ class BootState extends FlxState {
   override public function create():Void {
     super.create();
 
-    #if debug
-    FlxG.debugger.toggleKeys = ["ALT"];
-    #end
-
     // トランジション用オブジェクト生成
     MyTransition.create();
 
