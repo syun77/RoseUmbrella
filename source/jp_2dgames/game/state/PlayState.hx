@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import flixel.FlxCamera.FlxCameraFollowStyle;
 import jp_2dgames.game.token.Umbrella;
 import jp_2dgames.game.token.Door;
 import flixel.tile.FlxTilemap;
@@ -78,6 +79,12 @@ class PlayState extends FlxState {
 
     // シーケンス管理生成
     _seq = new SeqMgr(player, field, door);
+
+    // フォローカメラを設定
+    FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
+    // スクロールの有効範囲を設定
+    FlxG.camera.setScrollBoundsRect(0, 0, field.width, field.height, true);
+
 
     // ドアを有効にする
     door.setEnable();

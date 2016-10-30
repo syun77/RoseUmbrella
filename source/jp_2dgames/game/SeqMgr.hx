@@ -77,9 +77,9 @@ class SeqMgr {
   function _updateMain():Void {
     FlxG.collide(_player, _walls);
 //    FlxG.collide(_player, Floor.parent, _PlayerVsFloor);
-//    FlxG.overlap(_player, _door.spr, _PlayerVsDoor);
+    FlxG.overlap(_player, _door.spr, _PlayerVsDoor);
 
-    if(_player.y < 0 || FlxG.height < _player.y) {
+    if(_player.y < 0 || _walls.height < _player.y) {
       // 画面外で死亡
       _bDead = true;
     }
