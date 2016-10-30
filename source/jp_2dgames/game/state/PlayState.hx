@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.token.BrickBlock;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import jp_2dgames.game.token.Umbrella;
 import jp_2dgames.game.token.Door;
@@ -52,6 +53,9 @@ class PlayState extends FlxState {
     var field = Field.createWallTile();
     this.add(field);
 
+    // ブロック作成
+    BrickBlock.createParent(this);
+
     // プレイヤー生成
     var player:Player;
     {
@@ -72,6 +76,9 @@ class PlayState extends FlxState {
       this.add(door);
       pt.put();
     }
+
+    // 各種オブジェクト生成
+    Field.createObjects();
 
     // パーティクル生成
     Particle.createParent(this);
@@ -95,6 +102,7 @@ class PlayState extends FlxState {
    **/
   override public function destroy():Void {
 
+    BrickBlock.destroyParent();
     Particle.destroyParent();
     ParticleBmpFont.destroyParent();
 

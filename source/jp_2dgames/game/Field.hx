@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.BrickBlock;
 import flixel.math.FlxPoint;
 import flash.geom.Point;
 import flixel.util.FlxColor;
@@ -37,12 +38,12 @@ class Field {
   static inline var CHIP_NONE:Int   = 0;  // 何もなし
   static inline var CHIP_WALL:Int   = 1;  // 壁
   static inline var CHIP_FLOOR:Int  = 2;  // 床
-  static inline var CHIP_FLOOR2:Int = 3;  // 落下床
+  static inline var CHIP_BLOCK:Int  = 3;  // ブロック
   static inline var CHIP_PLAYER:Int = 9;  // プレイヤー
   static inline var CHIP_SPIKE:Int  = 10; // トゲ
   static inline var CHIP_ENEMY:Int  = 11; // 敵
   static inline var CHIP_GOAL:Int   = 12; // ゴール
-  static inline var CHIP_BLOCK:Int  = 15; // 隠しブロック
+  static inline var CHIP_SECRET_BLOCK:Int  = 15; // 隠しブロック
   static inline var CHIP_TRIGGER_SPIKE_DOWN:Int = 16; // 停止しているトゲを落とす
   static inline var CHIP_HOOK:Int   = 17; // ロープを引っかけるフック
   static inline var CHIP_ITEM:Int   = 18; // コイン
@@ -303,10 +304,8 @@ class Field {
         case CHIP_WALL:
         case CHIP_FLOOR:
           //Floor.add(x, y);
-        /*
-        case CHIP_FLOOR2:
-          Floor.add(true, x, y);
-        */
+        case CHIP_BLOCK:
+          BrickBlock.add(x, y);
         case CHIP_SPIKE:
           //Spike.add(Dir.None, x, y);
         /*
