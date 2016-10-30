@@ -52,17 +52,24 @@ class Umbrella extends Token {
    * 傘を開く
    **/
   public function open(dir:Dir):Void {
-    if(exists == false) {
+    if(isOpen() == false) {
       if(_canOpen) {
         // 開く
-        revive();
-        _dir = dir;
+        openForce(dir);
       }
     }
     else {
       // 閉じる
       close();
     }
+  }
+
+  /**
+   * 強制的に開く
+   **/
+  public function openForce(dir:Dir):Void {
+    revive();
+    _dir = dir;
   }
 
   /**

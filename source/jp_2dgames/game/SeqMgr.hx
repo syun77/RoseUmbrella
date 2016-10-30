@@ -1,5 +1,9 @@
 package jp_2dgames.game;
 
+import flixel.FlxBasic;
+import jp_2dgames.lib.DirUtil.Dir;
+import flixel.tile.FlxTile;
+import jp_2dgames.game.token.Umbrella;
 import jp_2dgames.game.token.Floor;
 import jp_2dgames.game.token.Door;
 import jp_2dgames.game.token.Player;
@@ -76,6 +80,14 @@ class SeqMgr {
    **/
   function _updateMain():Void {
     FlxG.collide(_player, _walls);
+    if(_player.umbrella.isOpen()) {
+      var xgrid = Math.floor(_player.umbrella.xcenter / 16);
+      var ygrid = Math.floor(_player.umbrella.ycenter / 16);
+      var tile = _walls.getTile(xgrid, ygrid);
+      if(tile > 0) {
+        _UmbrellaVsWall(_player.umbrella, xgrid, ygrid);
+      }
+    }
 //    FlxG.collide(_player, Floor.parent, _PlayerVsFloor);
     FlxG.overlap(_player, _door.spr, _PlayerVsDoor);
 
@@ -91,6 +103,15 @@ class SeqMgr {
     else if(_bStageClear) {
       // ステージクリア
       _state = State.StageClear;
+    }
+  }
+
+  // 傘 vs カベ
+  function _UmbrellaVsWall(umbrella:Umbrella, xgrid:Int, ygrid:Int):Void {
+    if(umbrella.dir == Dir.Down) {
+      // 傘を消す
+      umbrella.close();
+      _player.jumpByUmbrella();
     }
   }
 

@@ -61,7 +61,7 @@ class Player extends Token {
   // ■プロパティ
   public var light(get, never):FlxSprite;
   public var trail(get, never):FlxSprite;
-  public var umbrella(get, never):FlxSprite;
+  public var umbrella(get, never):Umbrella;
   // ======================================
   // ■メンバ変数
   var _state:State; // キャラクター状態
@@ -266,8 +266,21 @@ class Player extends Token {
     }
 
     // 傘の出し入れ
+    _openUmbrella();
+  }
+
+  /**
+   * 傘の出し入れ
+   **/
+  function _openUmbrella():Void {
     if(Input.press.B) {
       _umbrella.open(_lastdir);
+    }
+    else {
+      if(Input.on.DOWN) {
+        // 下方向に出す
+        _umbrella.openForce(Dir.Down);
+      }
     }
   }
 
@@ -290,6 +303,14 @@ class Player extends Token {
    **/
   function _jump():Void {
     velocity.y = JUMP_VELOCITY;
+    Snd.playSe("jump");
+  }
+
+  /**
+   * 踏みつけ傘ジャンプ
+   **/
+  public function jumpByUmbrella():Void {
+    velocity.y = JUMP_VELOCITY * 0.5;
     Snd.playSe("jump");
   }
 
