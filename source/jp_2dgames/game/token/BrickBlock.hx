@@ -1,5 +1,6 @@
 package jp_2dgames.game.token;
 
+import jp_2dgames.game.particle.Particle;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxState;
 
@@ -39,5 +40,13 @@ class BrickBlock extends Token {
   public function init(X:Float, Y:Float):Void {
     x = X;
     y = Y;
+  }
+
+  /**
+   * 消滅
+   **/
+  public function vanish():Void {
+    Particle.start(PType.Ball, xcenter, ycenter);
+    kill();
   }
 }

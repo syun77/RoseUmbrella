@@ -90,6 +90,7 @@ class SeqMgr {
   function _updateMain():Void {
     FlxG.collide(_player, _terrain);
     if(_player.umbrella.isOpen()) {
+      // 床と傘の当たり判定
       var xgrid = Math.floor(_player.umbrella.xcenter / 16);
       var ygrid = Math.floor(_player.umbrella.ycenter / 16);
       var tile = _walls.getTile(xgrid, ygrid);
@@ -97,6 +98,7 @@ class SeqMgr {
         _UmbrellaVsWall(_player.umbrella, xgrid, ygrid);
       }
     }
+    FlxG.overlap(_player.umbrella, BrickBlock.parent, _UmbrellaVsBrickBlock);
 //    FlxG.collide(_player, Floor.parent, _PlayerVsFloor);
     FlxG.overlap(_player, _door.spr, _PlayerVsDoor);
 
@@ -122,6 +124,18 @@ class SeqMgr {
       umbrella.close();
       _player.jumpByUmbrella();
     }
+  }
+
+  // 傘 vs レンガブロック
+  function _UmbrellaVsBrickBlock(umbrella:Umbrella, block:BrickBlock):Void {
+    // ブロック破壊
+    block.vanish();
+    if(umbrella.dir == Dir.Down) {
+      // 傘閉じる
+      umbrella.close();
+    }
+    // ジャンプ
+    _player.jumpByUmbrella();
   }
 
   // プレイヤー vs 一方通行床
