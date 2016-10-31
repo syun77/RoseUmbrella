@@ -1,5 +1,7 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.BrickBlock;
+import flixel.group.FlxGroup;
 import flixel.FlxBasic;
 import jp_2dgames.lib.DirUtil.Dir;
 import flixel.tile.FlxTile;
@@ -35,6 +37,8 @@ class SeqMgr {
   var _bDead:Bool = false;
   var _bStageClear:Bool = false;
 
+  var _terrain:FlxGroup; // 地形グループ
+
   var _player:Player;
   var _walls:FlxTilemap;
   var _door:Door;
@@ -48,6 +52,11 @@ class SeqMgr {
     _player = player;
     _walls = walls;
     _door = door;
+
+    // 地形グループに登録
+    _terrain = new FlxGroup();
+    _terrain.add(_walls);
+    _terrain.add(BrickBlock.parent);
   }
 
   /**
@@ -79,7 +88,7 @@ class SeqMgr {
    * 更新・メイン
    **/
   function _updateMain():Void {
-    FlxG.collide(_player, _walls);
+    FlxG.collide(_player, _terrain);
     if(_player.umbrella.isOpen()) {
       var xgrid = Math.floor(_player.umbrella.xcenter / 16);
       var ygrid = Math.floor(_player.umbrella.ycenter / 16);
