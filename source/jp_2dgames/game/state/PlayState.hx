@@ -190,6 +190,7 @@ class PlayState extends FlxState {
   function _updateDebug():Void {
 
 #if debug
+#if desktop
     if(FlxG.keys.justPressed.ESCAPE) {
       // 強制終了
       System.exit(0);
@@ -199,6 +200,7 @@ class PlayState extends FlxState {
       FlxG.resetState();
 //      FlxG.switchState(new PlayInitState());
     }
+#end
 #end
   }
 }

@@ -45,11 +45,9 @@ private class InputKey {
 #if desktop
     switch(_mode) {
       case KeyMode.Press:
-        /*
         if(FlxG.mouse.justPressed) {
           return true;
         }
-        */
       case KeyMode.On:
         if(FlxG.mouse.pressed) {
           return true;
@@ -248,6 +246,7 @@ class Input {
    **/
   public static function createVirtualPad(state:FlxState, ?DPad:FlxDPadMode, ?Action:FlxActionMode):Void {
     _virtualPad = new FlxVirtualPad(DPad, Action);
+    _virtualPad.alpha = 0.75; // 少し透過する
     state.add(_virtualPad);
   }
   public static function destroyVirtualPad():Void {
