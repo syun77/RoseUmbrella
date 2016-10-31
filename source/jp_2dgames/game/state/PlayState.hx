@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.token.Raindrop;
 import jp_2dgames.lib.Input;
 import jp_2dgames.game.token.BrickBlock;
 import flixel.FlxCamera.FlxCameraFollowStyle;
@@ -69,6 +70,9 @@ class PlayState extends FlxState {
       pt.put();
     }
 
+    // 雨生成
+    Raindrop.createParent(this);
+
     // ゴール
     var door:Door;
     {
@@ -108,6 +112,7 @@ class PlayState extends FlxState {
   override public function destroy():Void {
 
     BrickBlock.destroyParent();
+    Raindrop.destroyParent();
     Particle.destroyParent();
     ParticleBmpFont.destroyParent();
     Input.destroyVirtualPad();
