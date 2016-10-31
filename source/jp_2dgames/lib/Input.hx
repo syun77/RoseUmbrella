@@ -1,5 +1,8 @@
 package jp_2dgames.lib;
 
+import flixel.ui.FlxButton;
+import flixel.FlxState;
+import flixel.ui.FlxVirtualPad;
 import flixel.input.keyboard.FlxKey;
 import flixel.FlxG;
 
@@ -31,6 +34,9 @@ private class InputKey {
     _mode = mode;
   }
 
+  /**
+   * Aボタンの判定
+   **/
   function get_A() {
     var keys = [FlxKey.Z];
     if(_checkKeys(keys)) {
@@ -39,9 +45,11 @@ private class InputKey {
 #if desktop
     switch(_mode) {
       case KeyMode.Press:
+        /*
         if(FlxG.mouse.justPressed) {
           return true;
         }
+        */
       case KeyMode.On:
         if(FlxG.mouse.pressed) {
           return true;
@@ -52,26 +60,53 @@ private class InputKey {
         }
     }
 #end
+
+    if(Input.virtualPad != null) {
+      return _checkVirtualPad(Input.virtualPad.buttonA);
+    }
+
     return false;
   }
+
+  /**
+   * Bボタンの判定
+   **/
   function get_B() {
     var keys = [FlxKey.X];
     if(_checkKeys(keys)) {
       return true;
     }
+
+    if(Input.virtualPad != null) {
+      return _checkVirtualPad(Input.virtualPad.buttonB);
+    }
     return false;
   }
+
+  /**
+   * Xボタンの判定
+   **/
   function get_X() {
     var keys = [FlxKey.C];
     if(_checkKeys(keys)) {
       return true;
     }
+    if(Input.virtualPad != null) {
+      return _checkVirtualPad(Input.virtualPad.buttonX);
+    }
     return false;
   }
+
+  /**
+   * Yボタンの判定
+   **/
   function get_Y() {
     var keys = [FlxKey.V];
     if(_checkKeys(keys)) {
       return true;
+    }
+    if(Input.virtualPad != null) {
+      return _checkVirtualPad(Input.virtualPad.buttonY);
     }
     return false;
   }
@@ -83,6 +118,9 @@ private class InputKey {
     if(_checkKeys(keys)) {
       return true;
     }
+    if(Input.virtualPad != null) {
+      return _checkVirtualPad(Input.virtualPad.buttonLeft);
+    }
     return false;
   }
   function get_UP() {
@@ -92,6 +130,9 @@ private class InputKey {
     }
     if(_checkKeys(keys)) {
       return true;
+    }
+    if(Input.virtualPad != null) {
+      return _checkVirtualPad(Input.virtualPad.buttonUp);
     }
     return false;
   }
@@ -103,6 +144,9 @@ private class InputKey {
     if(_checkKeys(keys)) {
       return true;
     }
+    if(Input.virtualPad != null) {
+      return _checkVirtualPad(Input.virtualPad.buttonRight);
+    }
     return false;
   }
   function get_DOWN() {
@@ -112,6 +156,9 @@ private class InputKey {
     }
     if(_checkKeys(keys)) {
       return true;
+    }
+    if(Input.virtualPad != null) {
+      return _checkVirtualPad(Input.virtualPad.buttonDown);
     }
     return false;
   }
@@ -135,6 +182,20 @@ private class InputKey {
     }
 #end
     return false;
+  }
+
+  /**
+   * 仮想ゲームパッドの判定
+   **/
+  function _checkVirtualPad(btn:FlxButton):Bool {
+    return switch(_mode) {
+      case KeyMode.Press:
+        btn.justPressed;
+      case KeyMode.On:
+        btn.pressed;
+      case KeyMode.Release:
+        btn.released;
+    }
   }
 
 }
@@ -172,11 +233,26 @@ class Input {
 
   public static var x(get, never):Float;
   public static var y(get, never):Float;
+  public static var virtualPad(get, never):FlxVirtualPad;
 
   public static var mouse:InputMouse = new InputMouse();
   public static var press:InputKey = new InputKey(KeyMode.Press);
   public static var on:InputKey = new InputKey(KeyMode.On);
   public static var release:InputKey = new InputKey(KeyMode.Release);
+
+  // 仮想ゲームパッド
+  static var _virtualPad:FlxVirtualPad;
+
+  /**
+   * 仮想ゲームパッドの作成
+   **/
+  public static function createVirtualPad(state:FlxState, ?DPad:FlxDPadMode, ?Action:FlxActionMode):Void {
+    _virtualPad = new FlxVirtualPad(DPad, Action);
+    state.add(_virtualPad);
+  }
+  public static function destroyVirtualPad():Void {
+    _virtualPad = null;
+  }
 
   // ------------------------------------------------------
   // ■アクセサ
@@ -185,5 +261,8 @@ class Input {
   }
   static function get_y() {
     return mouse.y;
+  }
+  static function get_virtualPad() {
+    return _virtualPad;
   }
 }

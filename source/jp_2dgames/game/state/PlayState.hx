@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.lib.Input;
 import jp_2dgames.game.token.BrickBlock;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import jp_2dgames.game.token.Umbrella;
@@ -92,9 +93,13 @@ class PlayState extends FlxState {
     // スクロールの有効範囲を設定
     FlxG.camera.setScrollBoundsRect(0, 0, field.width, field.height, true);
 
-
     // ドアを有効にする
     door.setEnable();
+
+#if mobile
+    // 仮想ゲームパッド有効
+    Input.createVirtualPad(this, FULL, A_B);
+#end
   }
 
   /**
@@ -105,6 +110,7 @@ class PlayState extends FlxState {
     BrickBlock.destroyParent();
     Particle.destroyParent();
     ParticleBmpFont.destroyParent();
+    Input.destroyVirtualPad();
 
     super.destroy();
   }
