@@ -104,6 +104,7 @@ class SeqMgr {
         _UmbrellaVsWall(_player.umbrella, xgrid, ygrid);
       }
       FlxG.overlap(_player.umbrella, BrickBlock.parent, _UmbrellaVsBrickBlock);
+      FlxG.overlap(_player.umbrella, Raindrop.parent, _UmbrellaVsRain);
     }
 
     // 雨 vs 地形
@@ -154,8 +155,15 @@ class SeqMgr {
     _player.jumpByUmbrella();
   }
 
+  // 傘 vs 雨
+  function _UmbrellaVsRain(umbrella:Umbrella, rain:Raindrop):Void {
+    // 雨を消す
+    rain.vanish();
+  }
+
   // 雨 vs 地形
   function _RainVsTerrain(rain:Raindrop, terrain:FlxObject):Void {
+    // 雨を消す
     rain.vanish();
   }
 
