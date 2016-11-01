@@ -1,5 +1,7 @@
 package jp_2dgames.game.token;
 
+import flixel.effects.FlxFlicker;
+import jp_2dgames.game.global.Global;
 import jp_2dgames.lib.DirUtil;
 import flixel.addons.effects.FlxTrail;
 import jp_2dgames.lib.Snd;
@@ -20,6 +22,7 @@ private enum AnimState {
   Run;     // 走り
   Brake;   // ブレーキ
   Jump;    // ジャンプ中
+  Damage;  // ダメージ中
 }
 
 private enum State {
@@ -54,6 +57,7 @@ class Player extends Token {
   // ----------------------------------------
   // ■タイマー
   static inline var TIMER_JUMPDOWN:Int   = 12; // 飛び降り
+  static inline var TIMER_DAMAGE:Int     = 60; // ダメージタイマー
 
   // ----------------------------------------
 
@@ -68,7 +72,9 @@ class Player extends Token {
   var _anim:AnimState; // アニメーション状態
 
   var _tAnim:Int = 0;
-  var _timer:Int;
+  var _timer:Int = 0;
+  var _tDamage:Int = 0; // ダメージタイマー
+  var _canControl:Bool = true; // 操作可能かどうか
   var _animPrev:AnimState;
   var _light:FlxSprite;
   var _trail:FlxTrail;
@@ -265,6 +271,11 @@ class Player extends Token {
         }
     }
 
+    if(_canControl == false) {
+      // ダメージ中
+      _anim = AnimState.Damage;
+    }
+
     // 傘の出し入れ
     _openUmbrella();
   }
@@ -298,12 +309,25 @@ class Player extends Token {
     if(_tJumpDown > 0) {
       _tJumpDown--;
     }
+
+    // ダメージタイマー更新
+    if(_tDamage > 0) {
+      if(_tDamage < TIMER_DAMAGE/2) {
+        _canControl = true;
+      }
+      _tDamage--;
+    }
   }
 
   /**
    * ジャンプする
    **/
   function _jump():Void {
+    if(_canControl == false) {
+      // 操作不能
+      return;
+    }
+
     velocity.y = JUMP_VELOCITY;
     Snd.playSe("jump");
     Particle.start(PType.Ring4, xcenter, bottom, FlxColor.WHITE);
@@ -339,6 +363,12 @@ class Player extends Token {
    * 左右に移動する
    **/
   function _moveLR():Void {
+
+    if(_canControl == false) {
+      // 操作不能
+      return;
+    }
+
     acceleration.x = 0;
     if(Input.on.LEFT) {
       // 左に移動
@@ -386,11 +416,30 @@ class Player extends Token {
   /**
    * ダメージ処理
    **/
-  public function damage():Void {
-    // 死亡
-    vanish();
-    FlxG.camera.shake(0.05, 0.4);
-    FlxG.camera.flash(FlxColor.WHITE, 0.5);
+  public function damage(v:Int):Void {
+
+    if(_tDamage > 0) {
+      // ダメージ中はダメージを受けない
+      return;
+    }
+
+    Global.addLife(-v);
+    if(Global.life <= 0) {
+      // 死亡
+      vanish();
+      FlxG.camera.shake(0.05, 0.4);
+      FlxG.camera.flash(FlxColor.WHITE, 0.5);
+    }
+    else {
+      // ダメージ開始
+      _tDamage = TIMER_DAMAGE;
+      // 操作不能
+      _canControl = false;
+      // 少しの間停止
+      velocity.x = 0;
+      // 点滅開始
+      FlxFlicker.flicker(this, TIMER_DAMAGE/FlxG.updateFramerate);
+    }
   }
 
   /**
@@ -411,6 +460,7 @@ class Player extends Token {
     animation.add('${AnimState.Run}', [2, 2, 3, 3], 12);
     animation.add('${AnimState.Brake}', [4], 1);
     animation.add('${AnimState.Jump}', [2], 1);
+    animation.add('${AnimState.Damage}', [5, 6], 12);
   }
 
   /**

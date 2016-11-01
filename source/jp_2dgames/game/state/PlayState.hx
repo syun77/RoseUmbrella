@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.gui.GameUI;
 import jp_2dgames.game.token.RainCloud;
 import jp_2dgames.game.token.Raindrop;
 import jp_2dgames.lib.Input;
@@ -92,6 +93,9 @@ class PlayState extends FlxState {
     // パーティクル生成
     Particle.createParent(this);
     ParticleBmpFont.createParent(this);
+
+    // GUI生成
+    this.add(new GameUI());
 
     // シーケンス管理生成
     _seq = new SeqMgr(player, field, door);
@@ -203,6 +207,8 @@ class PlayState extends FlxState {
     if(FlxG.keys.justPressed.R) {
       // リスタート
       FlxG.resetState();
+      // HP満タン
+      Global.addLife(Global.MAX_LIFE);
 //      FlxG.switchState(new PlayInitState());
     }
 #end

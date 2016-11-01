@@ -90,7 +90,11 @@ class SeqMgr {
    * 更新・メイン
    **/
   function _updateMain():Void {
+
+    // プレイヤー vs Any
     FlxG.collide(_player, _terrain);
+    FlxG.overlap(_player, Raindrop.parent, _PlayerVsRaindrop);
+
     if(_player.umbrella.isOpen()) {
       // 床と傘の当たり判定
       var xgrid = Field.toGridX(_player.umbrella.xcenter);
@@ -102,6 +106,7 @@ class SeqMgr {
       FlxG.overlap(_player.umbrella, BrickBlock.parent, _UmbrellaVsBrickBlock);
     }
 
+    // 雨 vs 地形
     FlxG.collide(Raindrop.parent, _terrain, _RainVsTerrain);
 
 //    FlxG.collide(_player, Floor.parent, _PlayerVsFloor);
@@ -120,6 +125,12 @@ class SeqMgr {
       // ステージクリア
       _state = State.StageClear;
     }
+  }
+
+  // プレイヤー vs 雨
+  function _PlayerVsRaindrop(player:Player, rain:Raindrop):Void {
+    rain.vanish();
+    player.damage(40);
   }
 
   // 傘 vs カベ
@@ -143,6 +154,7 @@ class SeqMgr {
     _player.jumpByUmbrella();
   }
 
+  // 雨 vs 地形
   function _RainVsTerrain(rain:Raindrop, terrain:FlxObject):Void {
     rain.vanish();
   }
