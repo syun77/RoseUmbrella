@@ -17,14 +17,15 @@ class GameoverUI extends FlxSpriteGroup {
   public function new(bBtn:Bool=false) {
     super();
 
-    var txt = new FlxText(0, FlxG.height*0.3, FlxG.width, "YOU DIED");
+    var txt = new FlxText(0, FlxG.height*0.3, FlxG.width, "GAME OVER");
     txt.setFormat(null, FONT_SIZE, FlxColor.WHITE, "center", FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     this.add(txt);
 
     if(bBtn) {
       // やり直しボタン
-      var btn = new MyButton(FlxG.width/2, FlxG.height*0.7, "Next", function() {
-        FlxG.switchState(new PlayInitState());
+      var btn = new MyButton(FlxG.width/2, FlxG.height*0.7, "Restart", function() {
+//        FlxG.switchState(new PlayInitState());
+        FlxG.resetState();
       });
       btn.x -= btn.width/2;
       this.add(btn);

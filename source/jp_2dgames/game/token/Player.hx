@@ -57,7 +57,7 @@ class Player extends Token {
   // ----------------------------------------
   // ■タイマー
   static inline var TIMER_JUMPDOWN:Int   = 12; // 飛び降り
-  static inline var TIMER_DAMAGE:Int     = 60; // ダメージタイマー
+  static inline var TIMER_DAMAGE:Int     = 120; // ダメージタイマー
 
   // ----------------------------------------
 
@@ -312,7 +312,7 @@ class Player extends Token {
 
     // ダメージタイマー更新
     if(_tDamage > 0) {
-      if(_tDamage < TIMER_DAMAGE/2) {
+      if(_tDamage < TIMER_DAMAGE*0.75) {
         _canControl = true;
       }
       _tDamage--;
@@ -323,11 +323,6 @@ class Player extends Token {
    * ジャンプする
    **/
   function _jump():Void {
-    if(_canControl == false) {
-      // 操作不能
-      return;
-    }
-
     velocity.y = JUMP_VELOCITY;
     Snd.playSe("jump");
     Particle.start(PType.Ring4, xcenter, bottom, FlxColor.WHITE);
@@ -363,11 +358,6 @@ class Player extends Token {
    * 左右に移動する
    **/
   function _moveLR():Void {
-
-    if(_canControl == false) {
-      // 操作不能
-      return;
-    }
 
     acceleration.x = 0;
     if(Input.on.LEFT) {

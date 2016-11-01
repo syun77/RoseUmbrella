@@ -1,17 +1,16 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.RainCloud;
 import flixel.FlxObject;
 import jp_2dgames.game.token.Raindrop;
 import jp_2dgames.game.token.BrickBlock;
 import flixel.group.FlxGroup;
 import flixel.FlxBasic;
 import jp_2dgames.lib.DirUtil.Dir;
-import flixel.tile.FlxTile;
 import jp_2dgames.game.token.Umbrella;
 import jp_2dgames.game.token.Floor;
 import jp_2dgames.game.token.Door;
 import jp_2dgames.game.token.Player;
-import jp_2dgames.game.token.Token;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.tile.FlxTilemap;
@@ -87,10 +86,9 @@ class SeqMgr {
   }
 
   /**
-   * 更新・メイン
+   * 当たり判定
    **/
-  function _updateMain():Void {
-
+  public function collide():Void {
     // プレイヤー vs Any
     FlxG.collide(_player, _terrain);
     FlxG.overlap(_player, Raindrop.parent, _PlayerVsRaindrop);
@@ -110,11 +108,22 @@ class SeqMgr {
     // 雨 vs 地形
     FlxG.collide(Raindrop.parent, _terrain, _RainVsTerrain);
 
-//    FlxG.collide(_player, Floor.parent, _PlayerVsFloor);
+    //    FlxG.collide(_player, Floor.parent, _PlayerVsFloor);
     FlxG.overlap(_player, _door.spr, _PlayerVsDoor);
+
+  }
+
+  /**
+   * 更新・メイン
+   **/
+  function _updateMain():Void {
 
     if(_player.y < 0 || _walls.height < _player.y) {
       // 画面外で死亡
+      _player.damage(9999);
+    }
+    if(_player.exists == false) {
+      // プレイヤー死亡
       _bDead = true;
     }
 

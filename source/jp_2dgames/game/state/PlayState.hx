@@ -135,6 +135,9 @@ class PlayState extends FlxState {
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
 
+    // 当たり判定は常に行う
+    _seq.collide();
+
     switch(_state) {
       case State.Init:
         // ゲーム開始
@@ -154,6 +157,7 @@ class PlayState extends FlxState {
         // 次のレベルに進む
         StageClearUI.nextLevel();
     }
+
     #if debug
     _updateDebug();
     #end
@@ -207,8 +211,6 @@ class PlayState extends FlxState {
     if(FlxG.keys.justPressed.R) {
       // リスタート
       FlxG.resetState();
-      // HP満タン
-      Global.addLife(Global.MAX_LIFE);
 //      FlxG.switchState(new PlayInitState());
     }
 #end

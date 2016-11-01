@@ -16,7 +16,7 @@ class Global {
   }
 
   public static function initLevel():Void {
-    _level = 1;
+    _life = MAX_LIFE;
   }
 
   public static function addLevel():Bool {
