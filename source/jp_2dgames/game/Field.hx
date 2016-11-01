@@ -355,6 +355,20 @@ class Field {
   }
 
   /**
+   * ワールド座標をグリッド座標に変換(X)
+   **/
+  public static function toGridX(i:Float):Int {
+    return Math.floor(i / TILE_WIDTH);
+  }
+
+  /**
+   * ワールド座標をグリッド座標に変換(Y)
+   **/
+  public static function toGridY(j:Float):Int {
+    return Math.floor(j / TILE_HEIGHT);
+  }
+
+  /**
    * 座標をグリッドに合わせる
    **/
   public static function snapGrid(a:Float):Float {

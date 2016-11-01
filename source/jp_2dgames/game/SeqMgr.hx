@@ -1,5 +1,7 @@
 package jp_2dgames.game;
 
+import flixel.FlxObject;
+import jp_2dgames.game.token.Raindrop;
 import jp_2dgames.game.token.BrickBlock;
 import flixel.group.FlxGroup;
 import flixel.FlxBasic;
@@ -91,14 +93,17 @@ class SeqMgr {
     FlxG.collide(_player, _terrain);
     if(_player.umbrella.isOpen()) {
       // 床と傘の当たり判定
-      var xgrid = Math.floor(_player.umbrella.xcenter / 16);
-      var ygrid = Math.floor(_player.umbrella.ycenter / 16);
+      var xgrid = Field.toGridX(_player.umbrella.xcenter);
+      var ygrid = Field.toGridY(_player.umbrella.ycenter);
       var tile = _walls.getTile(xgrid, ygrid);
       if(tile > 0) {
         _UmbrellaVsWall(_player.umbrella, xgrid, ygrid);
       }
+      FlxG.overlap(_player.umbrella, BrickBlock.parent, _UmbrellaVsBrickBlock);
     }
-    FlxG.overlap(_player.umbrella, BrickBlock.parent, _UmbrellaVsBrickBlock);
+
+    FlxG.collide(Raindrop.parent, _terrain, _RainVsTerrain);
+
 //    FlxG.collide(_player, Floor.parent, _PlayerVsFloor);
     FlxG.overlap(_player, _door.spr, _PlayerVsDoor);
 
@@ -136,6 +141,10 @@ class SeqMgr {
     }
     // ジャンプ
     _player.jumpByUmbrella();
+  }
+
+  function _RainVsTerrain(rain:Raindrop, terrain:FlxObject):Void {
+    rain.vanish();
   }
 
   // プレイヤー vs 一方通行床
