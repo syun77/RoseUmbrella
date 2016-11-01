@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.RainCloud;
 import jp_2dgames.game.token.BrickBlock;
 import flixel.math.FlxPoint;
 import flash.geom.Point;
@@ -45,7 +46,7 @@ class Field {
   static inline var CHIP_GOAL:Int   = 12; // ゴール
   static inline var CHIP_SECRET_BLOCK:Int  = 15; // 隠しブロック
   static inline var CHIP_TRIGGER_SPIKE_DOWN:Int = 16; // 停止しているトゲを落とす
-  static inline var CHIP_HOOK:Int   = 17; // ロープを引っかけるフック
+  static inline var CHIP_RAIN_CLOUD:Int  = 17; // 雨雲
   static inline var CHIP_ITEM:Int   = 18; // コイン
   static inline var CHIP_SPIKE_UP:Int    = 29; // トゲ(上に移動)
   static inline var CHIP_SPIKE_DOWN:Int  = 30; // トゲ(下に移動)
@@ -308,10 +309,8 @@ class Field {
           BrickBlock.add(x, y);
         case CHIP_SPIKE:
           //Spike.add(Dir.None, x, y);
-        /*
-        case CHIP_HOOK:
-          Hook.add(x, y);
-        */
+        case CHIP_RAIN_CLOUD:
+          RainCloud.add(x, y);
         case CHIP_ITEM:
           //Item.add(x, y);
 

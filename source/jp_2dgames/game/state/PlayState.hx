@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.token.RainCloud;
 import jp_2dgames.game.token.Raindrop;
 import jp_2dgames.lib.Input;
 import jp_2dgames.game.token.BrickBlock;
@@ -70,6 +71,9 @@ class PlayState extends FlxState {
       pt.put();
     }
 
+    // 雨雲生成
+    RainCloud.createParent(this);
+
     // 雨生成
     Raindrop.createParent(this);
 
@@ -112,6 +116,7 @@ class PlayState extends FlxState {
   override public function destroy():Void {
 
     BrickBlock.destroyParent();
+    RainCloud.destroyParent();
     Raindrop.destroyParent();
     Particle.destroyParent();
     ParticleBmpFont.destroyParent();
