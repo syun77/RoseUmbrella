@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.Pit;
 import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.token.RainCloud;
 import flixel.FlxObject;
@@ -66,6 +67,7 @@ class SeqMgr {
     _entities.add(Raindrop.parent);
     _entities.add(BrickBlock.parent);
     _entities.add(Spike.parent);
+    _entities.add(Pit.parent);
   }
 
   /**
@@ -152,6 +154,7 @@ class SeqMgr {
       // プレイヤー vs 何か
       if(Std.is(entity, Raindrop)) { (cast entity).interact(subject); } // 雨粒
       if(Std.is(entity, Spike))    { (cast entity).interact(subject); } // 鉄球
+      if(Std.is(entity, Pit))      { (cast entity).interact(subject); } // ピット
     }
     else if(Std.is(subject, Umbrella)) {
 

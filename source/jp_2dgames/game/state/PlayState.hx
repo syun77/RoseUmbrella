@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.token.Pit;
 import flixel.addons.transition.FlxTransitionableState;
 import jp_2dgames.game.particle.ParticleStartLevel;
 import jp_2dgames.game.token.Spike;
@@ -83,6 +84,9 @@ class PlayState extends FlxTransitionableState {
     // 鉄球生成
     Spike.createParent(this);
 
+    // ピット生成
+    Pit.createParent(this);
+
     // ゴール
     var door:Door;
     {
@@ -128,6 +132,7 @@ class PlayState extends FlxTransitionableState {
     RainCloud.destroyParent();
     Raindrop.destroyParent();
     Spike.destroyParent();
+    Pit.destroyParent();
     Particle.destroyParent();
     ParticleBmpFont.destroyParent();
     Input.destroyVirtualPad();

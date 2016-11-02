@@ -1,5 +1,7 @@
 package jp_2dgames.game;
 
+import jp_2dgames.lib.DirUtil.Dir;
+import jp_2dgames.game.token.Pit;
 import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.token.RainCloud;
 import jp_2dgames.game.token.BrickBlock;
@@ -49,15 +51,16 @@ class Field {
   static inline var CHIP_TRIGGER_SPIKE_DOWN:Int = 16; // 停止しているトゲを落とす
   static inline var CHIP_RAIN_CLOUD:Int  = 17; // 雨雲
   static inline var CHIP_ITEM:Int   = 18; // コイン
+  /*
   static inline var CHIP_SPIKE_UP:Int    = 29; // トゲ(上に移動)
   static inline var CHIP_SPIKE_DOWN:Int  = 30; // トゲ(下に移動)
   static inline var CHIP_SPIKE_LEFT:Int  = 31; // トゲ(左に移動)
   static inline var CHIP_SPIKE_RIGHT:Int = 32; // トゲ(右に移動)
-
-  static inline var CHIP_PIT:Int         = 17; // トゲ穴
-  static inline var CHIP_PIT_LEFT:Int    = 18; // トゲ穴(左側に出現)
-  static inline var CHIP_PIT_RIGHT:Int   = 19; // トゲ穴(右側に出現)
-  static inline var CHIP_PIT_DOWN:Int    = 20; // トゲ穴(下側に出現)
+  */
+  static inline var CHIP_PIT:Int         = 25; // トゲ穴
+  static inline var CHIP_PIT_LEFT:Int    = 26; // トゲ穴(左側に出現)
+  static inline var CHIP_PIT_RIGHT:Int   = 27; // トゲ穴(右側に出現)
+  static inline var CHIP_PIT_DOWN:Int    = 28; // トゲ穴(下側に出現)
 
   static inline var CHIP_FLAG:Int = 15;
   static inline var CHIP_STAIR:Int = 17;
@@ -328,6 +331,7 @@ class Field {
           Block.add(x, y);
         case CHIP_TRIGGER_SPIKE_DOWN:
           Trigger.add(x, y);
+        */
         case CHIP_PIT:
           Pit.add(Dir.Up, x, y);
         case CHIP_PIT_LEFT:
@@ -336,7 +340,6 @@ class Field {
           Pit.add(Dir.Right, x, y);
         case CHIP_PIT_DOWN:
           Pit.add(Dir.Down, x, y);
-        */
       }
     });
   }
