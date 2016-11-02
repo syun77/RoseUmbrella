@@ -414,6 +414,9 @@ class Player extends Token {
     }
 
     Global.addLife(-v);
+    // 傘を閉じる
+    _umbrella.close();
+
     if(Global.life <= 0) {
       // 死亡
       vanish();

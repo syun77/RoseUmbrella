@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.particle.ParticleStartLevel;
 import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.gui.GameUI;
 import jp_2dgames.game.token.RainCloud;
@@ -172,6 +173,8 @@ class PlayState extends FlxState {
    * 更新・初期化
    **/
   function _updateInit():Void {
+    // 開始演出
+    ParticleStartLevel.start(this);
   }
 
   /**

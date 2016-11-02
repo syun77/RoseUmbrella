@@ -6,6 +6,7 @@ package jp_2dgames.game.global;
 import flixel.math.FlxMath;
 class Global {
 
+  public static inline var MAX_LEVEL:Int = 3;
   public static inline var MAX_LIFE:Int = 100;
 
   static var _level:Int = 1;
