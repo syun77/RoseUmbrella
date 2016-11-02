@@ -50,7 +50,10 @@ class Raindrop extends Token {
    * プレイヤーとの衝突
    **/
   public function interact(player:Player):Void {
-    player.damage(40);
+    if(player.umbrella.isOpenUpside() == false) {
+      // ダメージ
+      player.damage(40);
+    }
     vanish();
   }
 

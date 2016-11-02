@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import flixel.addons.transition.FlxTransitionableState;
 import jp_2dgames.game.particle.ParticleStartLevel;
 import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.gui.GameUI;
@@ -14,7 +15,6 @@ import flixel.tile.FlxTilemap;
 import jp_2dgames.game.token.Player;
 import flash.system.System;
 import jp_2dgames.game.gui.GameoverUI;
-import flixel.FlxState;
 import jp_2dgames.game.gui.StageClearUI;
 import jp_2dgames.game.particle.ParticleBmpFont;
 import jp_2dgames.game.particle.Particle;
@@ -36,7 +36,7 @@ private enum State {
 /**
  * メインゲーム画面
  **/
-class PlayState extends FlxState {
+class PlayState extends FlxTransitionableState {
 
   // ---------------------------------------
   // ■フィールド

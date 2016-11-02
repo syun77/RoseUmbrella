@@ -1,13 +1,13 @@
 package jp_2dgames.game.state;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.ui.FlxButton;
 import flixel.text.FlxText;
 import flixel.FlxG;
-import flixel.FlxState;
 
 /**
  * エンディング画面
  **/
-class EndingState extends FlxState {
+class EndingState extends FlxTransitionableState {
 
   static inline var FONT_SIZE:Int = 8 * 1;
 

@@ -1,4 +1,5 @@
 package jp_2dgames.game.state;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxSprite;
 import flixel.util.FlxTimer;
 import flixel.FlxG;
@@ -10,7 +11,7 @@ import flixel.FlxState;
 /**
  * タイトル画面
  **/
-class TitleState extends FlxState {
+class TitleState extends FlxTransitionableState {
 
   static inline var FONT_SIZE:Int = 8 * 3;
 
@@ -21,7 +22,7 @@ class TitleState extends FlxState {
     var bg = new FlxSprite(0, FlxG.height*0.2);
     bg.makeGraphic(FlxG.width, 32, FlxColor.GRAY);
     this.add(bg);
-    var txt = new FlxText(0, FlxG.height*0.2, FlxG.width, "Rose Umbrella");
+    var txt = new FlxText(0, FlxG.height*0.2, FlxG.width, "Umbrella (Provisional)");
     txt.setFormat(null, FONT_SIZE, FlxColor.WHITE, "center", FlxTextBorderStyle.OUTLINE, 0xFF3c3c3c);
     this.add(txt);
     new FlxTimer().start(3, function(timer:FlxTimer) {
