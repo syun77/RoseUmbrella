@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.token.RainCloud;
 import flixel.FlxObject;
 import jp_2dgames.game.token.Raindrop;
@@ -38,6 +39,7 @@ class SeqMgr {
   var _bDead:Bool = false;
   var _bStageClear:Bool = false;
 
+  var _entities:FlxGroup; // オブジェクト管理
   var _terrain:FlxGroup; // 地形グループ
 
   var _player:Player;
@@ -58,6 +60,12 @@ class SeqMgr {
     _terrain = new FlxGroup();
     _terrain.add(_walls);
     _terrain.add(BrickBlock.parent);
+
+    // オブジェクト管理に登録
+    _entities = new FlxGroup();
+    _entities.add(Raindrop.parent);
+    _entities.add(BrickBlock.parent);
+    _entities.add(Spike.parent);
   }
 
   /**
@@ -89,9 +97,9 @@ class SeqMgr {
    * 当たり判定
    **/
   public function collide():Void {
-    // プレイヤー vs Any
+    // プレイヤー vs 何か
     FlxG.collide(_player, _terrain);
-    FlxG.overlap(_player, Raindrop.parent, _PlayerVsRaindrop);
+    FlxG.overlap(_player, _entities, _collideEntities);
 
     if(_player.umbrella.isOpen()) {
       // 床と傘の当たり判定
@@ -101,8 +109,7 @@ class SeqMgr {
       if(tile > 0) {
         _UmbrellaVsWall(_player.umbrella, xgrid, ygrid);
       }
-      FlxG.overlap(_player.umbrella, BrickBlock.parent, _UmbrellaVsBrickBlock);
-      FlxG.overlap(_player.umbrella, Raindrop.parent, _UmbrellaVsRain);
+      FlxG.overlap(_player.umbrella, _entities, _collideEntities);
     }
 
     // 雨 vs 地形
@@ -137,10 +144,21 @@ class SeqMgr {
     }
   }
 
-  // プレイヤー vs 雨
-  function _PlayerVsRaindrop(player:Player, rain:Raindrop):Void {
-    rain.vanish();
-    player.damage(40);
+  // Entityとの衝突判定
+  function _collideEntities(subject:FlxSprite, entity:FlxSprite):Void {
+
+    if(Std.is(subject, Player)) {
+
+      // プレイヤー vs 何か
+      if(Std.is(entity, Raindrop)) { (cast entity).interact(subject); } // 雨粒
+      if(Std.is(entity, Spike))    { (cast entity).interact(subject); } // 鉄球
+    }
+    else if(Std.is(subject, Umbrella)) {
+
+      // 傘 vs 何か
+      if(Std.is(entity, Raindrop))   { (cast entity).interactUmbrella(subject); } // 雨粒
+      if(Std.is(entity, BrickBlock)) { (cast entity).interact(_player); } // レンガブロック
+    }
   }
 
   // 傘 vs カベ
@@ -150,24 +168,6 @@ class SeqMgr {
       umbrella.close();
       _player.jumpByUmbrella();
     }
-  }
-
-  // 傘 vs レンガブロック
-  function _UmbrellaVsBrickBlock(umbrella:Umbrella, block:BrickBlock):Void {
-    // ブロック破壊
-    block.vanish();
-    if(umbrella.dir == Dir.Down) {
-      // 傘閉じる
-      umbrella.close();
-    }
-    // ジャンプ
-    _player.jumpByUmbrella();
-  }
-
-  // 傘 vs 雨
-  function _UmbrellaVsRain(umbrella:Umbrella, rain:Raindrop):Void {
-    // 雨を消す
-    rain.vanish();
   }
 
   // 雨 vs 地形

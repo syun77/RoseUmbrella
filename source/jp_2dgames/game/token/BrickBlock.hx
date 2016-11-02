@@ -1,5 +1,6 @@
 package jp_2dgames.game.token;
 
+import jp_2dgames.lib.DirUtil.Dir;
 import jp_2dgames.game.particle.Particle;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxState;
@@ -48,5 +49,19 @@ class BrickBlock extends Token {
   public function vanish():Void {
     Particle.start(PType.Ball, xcenter, ycenter);
     kill();
+  }
+
+  /**
+   * 傘との衝突
+   **/
+  public function interact(player:Player):Void {
+    // ブロック破壊
+    vanish();
+    if(player.umbrella.dir == Dir.Down) {
+      // 傘閉じる
+      player.umbrella.close();
+    }
+    // ジャンプ
+    player.jumpByUmbrella();
   }
 }

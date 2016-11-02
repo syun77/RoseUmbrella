@@ -39,4 +39,11 @@ class Spike extends Token {
     x = X;
     y = Y;
   }
+
+  /**
+   * プレイヤーとの衝突
+   **/
+  public function interact(player:Player):Void {
+    player.damage(40);
+  }
 }

@@ -47,6 +47,21 @@ class Raindrop extends Token {
   }
 
   /**
+   * プレイヤーとの衝突
+   **/
+  public function interact(player:Player):Void {
+    player.damage(40);
+    vanish();
+  }
+
+  /**
+   * 雨粒との衝突
+   **/
+  public function interactUmbrella(umbrella:Umbrella):Void {
+    vanish();
+  }
+
+  /**
    * 雨粒消滅
    **/
   public function vanish():Void {
