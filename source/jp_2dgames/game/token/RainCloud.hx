@@ -53,7 +53,7 @@ class RainCloud extends Token {
     super.update(elapsed);
 
     if(_canEmit) {
-      Raindrop.add(x, y, 270, 300);
+      Raindrop.add(xcenter, ycenter, 270, 200);
       _canEmit = false;
       new FlxTimer().start(0.2, function(_) {
         _canEmit = true;

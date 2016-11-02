@@ -10,6 +10,9 @@ import flixel.group.FlxGroup.FlxTypedGroup;
  **/
 class Raindrop extends Token {
 
+  // 重力
+  static inline var GRAVITY:Int = 200;
+
   public static var parent:FlxTypedGroup<Raindrop> = null;
   public static function createParent(state:FlxState):Void {
     parent = new FlxTypedGroup<Raindrop>();
@@ -31,14 +34,15 @@ class Raindrop extends Token {
   public function new() {
     super();
     loadGraphic(AssetPaths.IMAGE_RAINDROP);
+    acceleration.y = GRAVITY;
   }
 
   /**
    * 初期化
    **/
   public function init(X:Float, Y:Float):Void {
-    x = X;
-    y = Y;
+    x = X - offset.x;
+    y = Y - offset.y;
 
   }
 
