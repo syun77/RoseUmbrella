@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.gui.GameUI;
 import jp_2dgames.game.token.RainCloud;
 import jp_2dgames.game.token.Raindrop;
@@ -78,6 +79,9 @@ class PlayState extends FlxState {
     // 雨生成
     Raindrop.createParent(this);
 
+    // 鉄球生成
+    Spike.createParent(this);
+
     // ゴール
     var door:Door;
     {
@@ -122,6 +126,7 @@ class PlayState extends FlxState {
     BrickBlock.destroyParent();
     RainCloud.destroyParent();
     Raindrop.destroyParent();
+    Spike.destroyParent();
     Particle.destroyParent();
     ParticleBmpFont.destroyParent();
     Input.destroyVirtualPad();

@@ -8,4 +8,5 @@ class AssetPaths {
   public static inline var IMAGE_UMBRELLA = "assets/images/umbrella.png";
   public static inline var IMAGE_BLOCK  = "assets/images/block.png";
   public static inline var IMAGE_RAINDROP = "assets/images/raindrop.png";
+  public static inline var IMAGE_SPIKE  = "assets/images/spike.png";
 }

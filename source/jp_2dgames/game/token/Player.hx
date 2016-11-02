@@ -426,7 +426,7 @@ class Player extends Token {
       // 操作不能
       _canControl = false;
       // 少しの間停止
-      velocity.x = 0;
+      velocity.set();
       // 点滅開始
       FlxFlicker.flicker(this, TIMER_DAMAGE/FlxG.updateFramerate);
     }

@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.token.RainCloud;
 import jp_2dgames.game.token.BrickBlock;
 import flixel.math.FlxPoint;
@@ -308,7 +309,7 @@ class Field {
         case CHIP_BLOCK:
           BrickBlock.add(x, y);
         case CHIP_SPIKE:
-          //Spike.add(Dir.None, x, y);
+          Spike.add(x, y);
         case CHIP_RAIN_CLOUD:
           RainCloud.add(x, y);
         case CHIP_ITEM:
