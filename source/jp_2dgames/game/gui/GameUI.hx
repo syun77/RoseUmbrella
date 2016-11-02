@@ -1,5 +1,6 @@
 package jp_2dgames.game.gui;
 
+import flixel.ui.FlxButton;
 import flixel.util.FlxAxes;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
@@ -60,6 +61,12 @@ class GameUI extends FlxSpriteGroup {
     // HPテキスト
     _txtHp = new FlxText(_barHp.x + _barHp.width, py-2, 0, "", FONT_SIZE);
     this.add(_txtHp);
+
+    // リトライボタン
+    var btnRetry = new FlxButton(0, FlxG.height-24, "Retry", function() {
+      FlxG.resetState();
+    });
+    this.add(btnRetry);
 
     scrollFactor.set();
   }

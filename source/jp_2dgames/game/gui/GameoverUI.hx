@@ -1,4 +1,5 @@
 package jp_2dgames.game.gui;
+import flixel.util.FlxAxes;
 import jp_2dgames.game.gui.MyButton;
 import jp_2dgames.game.state.PlayInitState;
 import flixel.ui.FlxButton;
@@ -20,7 +21,10 @@ class GameoverUI extends FlxSpriteGroup {
     var txt = new FlxText(0, FlxG.height*0.3, FlxG.width, "GAME OVER");
     txt.setFormat(null, FONT_SIZE, FlxColor.WHITE, "center", FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     this.add(txt);
+    // 中央に配置
+    txt.screenCenter(FlxAxes.Y);
 
+    /*
     if(bBtn) {
       // やり直しボタン
       var btn = new MyButton(FlxG.width/2, FlxG.height*0.7, "Restart", function() {
@@ -36,6 +40,7 @@ class GameoverUI extends FlxSpriteGroup {
       txt2.alignment = "center";
       this.add(txt2);
     }
+    */
 
     scrollFactor.set();
   }
