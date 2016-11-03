@@ -1,14 +1,15 @@
 package jp_2dgames.game.global;
 
+import flixel.math.FlxMath;
+
 /**
  * グローバル変数
  **/
-import flixel.math.FlxMath;
 class Global {
 
   public static inline var MAX_LEVEL:Int = 4;
   public static inline var MAX_LIFE:Int = 100;
-  public static inline var START_LEVEL:Int = 4;
+  public static inline var START_LEVEL:Int = 1;
 
   static var _level:Int = 1;
   static var _life:Int = MAX_LIFE;
