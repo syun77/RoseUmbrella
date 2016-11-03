@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.lib.TextUtil;
 import jp_2dgames.game.token.Hint;
 import jp_2dgames.game.gui.MessageUI;
 import jp_2dgames.game.token.Floor;
@@ -72,18 +73,6 @@ class PlayState extends FlxTransitionableState {
     // ヒント
     Hint.createParent(this);
 
-    // プレイヤー生成
-    var player:Player;
-    {
-      var umbrella = new Umbrella();
-      var pt = Field.getStartPosition();
-      player = new Player(pt.x, pt.y, umbrella);
-      this.add(player.light);
-      this.add(player);
-      this.add(umbrella);
-      pt.put();
-    }
-
     // 雨雲生成
     RainCloud.createParent(this);
 
@@ -104,6 +93,19 @@ class PlayState extends FlxTransitionableState {
       this.add(door);
       pt.put();
     }
+
+    // プレイヤー生成
+    var player:Player;
+    {
+      var umbrella = new Umbrella();
+      var pt = Field.getStartPosition();
+      player = new Player(pt.x, pt.y, umbrella);
+      this.add(player.light);
+      this.add(player);
+      this.add(umbrella);
+      pt.put();
+    }
+
 
     // 各種オブジェクト生成
     Field.createObjects();
@@ -128,6 +130,10 @@ class PlayState extends FlxTransitionableState {
 
     // ドアを有効にする
     door.setEnable();
+
+    // BGM再生
+    var bgm = '${(Global.level+1)%2+1}';
+    Snd.playMusic(bgm);
 
 #if mobile
     // 仮想ゲームパッド有効
@@ -206,11 +212,12 @@ class PlayState extends FlxTransitionableState {
       case SeqMgr.RET_DEAD:
         // ゲームオーバー
         _startGameover();
+        Snd.stopMusic();
         return;
       case SeqMgr.RET_STAGECLEAR:
         // ステージクリア
         _state = State.Stageclear;
-        Snd.stopMusic();
+        Snd.stopMusic(1);
     }
   }
 

@@ -129,9 +129,14 @@ class Snd {
   /**
    * BGMを停止する
    **/
-  public static function stopMusic():Void {
+  public static function stopMusic(fadeTime:Float=0.0):Void {
     if(FlxG.sound.music != null) {
-      FlxG.sound.music.stop();
+      if(fadeTime > 0.0) {
+        FlxG.sound.music.fadeOut(fadeTime, 0);
+      }
+      else {
+        FlxG.sound.music.stop();
+      }
     }
   }
 

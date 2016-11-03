@@ -43,7 +43,7 @@ class MessageUI extends FlxSpriteGroup {
     _bg = new FlxSprite();
     _bg.makeGraphic(FlxG.width, 16, FlxColor.BLACK);
     _bg.alpha = 0.5;
-    _bg.screenCenter(FlxAxes.XY);
+    _bg.screenCenter(FlxAxes.Y);
     this.add(_bg);
 
     _txt = new FlxText(0, 0, FlxG.width);
