@@ -1,5 +1,6 @@
 package jp_2dgames.game.token;
 
+import jp_2dgames.lib.Snd;
 import jp_2dgames.lib.DirUtil.Dir;
 import jp_2dgames.game.particle.Particle;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -47,6 +48,7 @@ class BrickBlock extends Token {
    * 消滅
    **/
   public function vanish():Void {
+    Snd.playSe("break");
     Particle.start(PType.Ball, xcenter, ycenter);
     kill();
   }

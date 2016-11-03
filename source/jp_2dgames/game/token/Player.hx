@@ -432,6 +432,8 @@ class Player extends Token {
       vanish();
       FlxG.camera.shake(0.05, 0.4);
       FlxG.camera.flash(FlxColor.WHITE, 0.5);
+      Snd.playSe("kya");
+      Snd.playSe("break");
     }
     else {
       // ダメージ開始
@@ -442,6 +444,7 @@ class Player extends Token {
       velocity.set();
       // 点滅開始
       FlxFlicker.flicker(this, TIMER_DAMAGE/FlxG.updateFramerate);
+      Snd.playSe("hit");
     }
   }
 

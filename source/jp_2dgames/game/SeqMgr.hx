@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.lib.Snd;
 import jp_2dgames.game.token.Hint;
 import jp_2dgames.game.token.Pit;
 import jp_2dgames.game.token.Spike;
@@ -170,5 +171,6 @@ class SeqMgr {
   function _PlayerVsDoor(player:Player, door:FlxSprite):Void {
     // ステージクリア
     _bStageClear = true;
+    Snd.playSe("goal");
   }
 }

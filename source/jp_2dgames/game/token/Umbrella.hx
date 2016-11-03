@@ -1,5 +1,6 @@
 package jp_2dgames.game.token;
 
+import jp_2dgames.lib.Snd;
 import jp_2dgames.lib.MyColor;
 import flixel.util.FlxColor;
 import jp_2dgames.game.particle.Particle;
@@ -75,6 +76,7 @@ class Umbrella extends Token {
   public function openForce(dir:Dir):Void {
     revive();
     _dir = dir;
+    Snd.playSe("umbrella");
   }
 
   /**
@@ -83,6 +85,7 @@ class Umbrella extends Token {
   public function close():Void {
     kill();
     _canOpen = false;
+    Snd.playSe("umbrella");
   }
 
   /**

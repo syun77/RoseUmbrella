@@ -46,6 +46,11 @@
 	<!-- SE -->
 	<assets path="assets/sounds">
 		<sound path="jump.wav" id="jump"/>
+		<sound path="break.wav" id="break"/>
+		<sound path="goal.wav" id="goal"/>
+		<sound path="hit.wav" id="hit"/>
+		<sound path="kya.wav" id="kya"/>
+		<sound path="umbrella.wav" id="umbrella"/>
 	</assets>
 
 	<!-- _______________________________ Libraries ______________________________ -->

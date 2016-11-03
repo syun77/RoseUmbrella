@@ -63,7 +63,7 @@ class Snd {
   /**
    * SEの再生
    **/
-  public static function playSe(key:String, bOneShot:Bool = false, tWait:Float = 0.01):FlxSound {
+  public static function playSe(key:String, bOneShot:Bool = true, tWait:Float = 0.01):FlxSound {
 
     if(_bSeEnable == false) {
       // SE無効

@@ -1,6 +1,7 @@
 package jp_2dgames.game.gui;
 
 import flixel.util.FlxColor;
+import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxAxes;
@@ -46,7 +47,7 @@ class MessageUI extends FlxSpriteGroup {
     this.add(_bg);
 
     _txt = new FlxText(0, 0, FlxG.width);
-    _txt.setFormat(AssetPaths.FONT, 10, FlxTextAlign.CENTER);
+    _txt.setFormat(AssetPaths.FONT, 10, FlxColor.WHITE, FlxTextAlign.CENTER);
     _txt.screenCenter(FlxAxes.Y);
     this.add(_txt);
 
