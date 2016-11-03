@@ -104,13 +104,7 @@ class SeqMgr {
     FlxG.overlap(_player, _entities, _collideEntities);
 
     if(_player.umbrella.isOpen()) {
-      // 床と傘の当たり判定
-      var xgrid = Field.toGridX(_player.umbrella.xcenter);
-      var ygrid = Field.toGridY(_player.umbrella.ycenter);
-      var tile = _walls.getTile(xgrid, ygrid);
-      if(tile > 0) {
-        _UmbrellaVsWall(_player.umbrella, xgrid, ygrid);
-      }
+      // 傘 vs 何か
       FlxG.overlap(_player.umbrella, _entities, _collideEntities);
     }
 

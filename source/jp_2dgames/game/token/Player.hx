@@ -226,49 +226,10 @@ class Player extends Token {
     // キャラクター状態
     switch(_state) {
       case State.Standing:
+        _inputStanding();
 
-        // 傘が使えるようになる
-        _umbrella.activate();
-
-        // 左右に移動
-        _moveLR();
-        if(isTouching(FlxObject.FLOOR)){
-          velocity.y = 0;
-        }
-        if(Input.on.DOWN) {
-          // 飛び降りる
-          _tJumpDown = TIMER_JUMPDOWN;
-        }
-        else if(Input.press.A) {
-          // ジャンプ
-          _jump();
-        }
-
-        if(isTouching(FlxObject.FLOOR) == false) {
-          // ジャンプした
-          _state = State.Jumping;
-        }
       case State.Jumping:
-        // 左右に移動
-        _moveLR();
-
-        _anim = AnimState.Jump;
-
-        if(Input.press.A) {
-          if(_umbrella.isOpenUpside()) {
-            // 上方向に傘を開いていたら空中ジャンプできる
-            // 傘は閉じる
-            _umbrella.close();
-            // 空中重力無効
-            _updateGravity();
-            _jump();
-          }
-        }
-
-        if(isTouching(FlxObject.FLOOR)) {
-          // 着地した
-          _state = State.Standing;
-        }
+        _inputJumping();
     }
 
     if(_canControl == false) {
@@ -278,6 +239,64 @@ class Player extends Token {
 
     // 傘の出し入れ
     _openUmbrella();
+  }
+
+  /**
+   * 入力・立ち状態
+   **/
+  function _inputStanding():Void {
+    // 傘が使えるようになる
+    _umbrella.activate();
+
+    // 左右に移動
+    _moveLR();
+    if(isTouching(FlxObject.FLOOR)){
+      // 着地
+      velocity.y = 0;
+      if(_umbrella.isOpenDownside()) {
+        // 下側に傘を開いていたら閉じる
+        _umbrella.close();
+      }
+    }
+    if(Input.on.DOWN) {
+      // 飛び降りる
+      _tJumpDown = TIMER_JUMPDOWN;
+    }
+    else if(Input.press.A) {
+      // ジャンプ
+      _jump();
+    }
+
+    if(isTouching(FlxObject.FLOOR) == false) {
+      // ジャンプした
+      _state = State.Jumping;
+    }
+  }
+
+  /**
+   * 入力・ジャンプ状態
+   **/
+  function _inputJumping():Void {
+    // 左右に移動
+    _moveLR();
+
+    _anim = AnimState.Jump;
+
+    if(Input.press.A) {
+      if(_umbrella.isOpenUpside()) {
+        // 上方向に傘を開いていたら空中ジャンプできる
+        // 傘は閉じる
+        _umbrella.close();
+        // 空中重力無効
+        _updateGravity();
+        _jump();
+      }
+    }
+
+    if(isTouching(FlxObject.FLOOR)) {
+      // 着地した
+      _state = State.Standing;
+    }
   }
 
   /**

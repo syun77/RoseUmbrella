@@ -106,6 +106,19 @@ class Umbrella extends Token {
   }
 
   /**
+   * 下方向に傘を開いているかどうか
+   **/
+  public function isOpenDownside():Bool {
+    if(isOpen()) {
+      if(_dir == Dir.Down) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
    * 座標を更新
    **/
   public function proc(xroot:Float, yroot:Float, newDir:Dir):Void {
