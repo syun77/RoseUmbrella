@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.token.Floor;
 import jp_2dgames.game.token.Pit;
 import flixel.addons.transition.FlxTransitionableState;
 import jp_2dgames.game.particle.ParticleStartLevel;
@@ -59,6 +60,9 @@ class PlayState extends FlxTransitionableState {
     // マップ作成
     var field = Field.createWallTile();
     this.add(field);
+
+    // 一方通行床の作成
+    Floor.createParent(this);
 
     // ブロック作成
     BrickBlock.createParent(this);
@@ -128,6 +132,7 @@ class PlayState extends FlxTransitionableState {
    **/
   override public function destroy():Void {
 
+    Floor.destroyParent();
     BrickBlock.destroyParent();
     RainCloud.destroyParent();
     Raindrop.destroyParent();

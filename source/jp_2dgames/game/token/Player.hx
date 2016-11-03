@@ -1,5 +1,6 @@
 package jp_2dgames.game.token;
 
+import flixel.util.FlxTimer;
 import flixel.effects.FlxFlicker;
 import jp_2dgames.game.global.Global;
 import jp_2dgames.lib.DirUtil;
@@ -79,18 +80,9 @@ class Player extends Token {
   var _light:FlxSprite;
   var _trail:FlxTrail;
   var _umbrella:Umbrella;
-  var _tJumpDown:Int = 0; // 飛び降りタイマー
   var _dir:Dir; // 向いている方向
   var _lastdir:Dir; // 最後に押した方向
   var _bSlow:Bool = false;
-
-  /**
-   * 飛び降り中かどうか
-   **/
-  public function isJumpDown():Bool {
-    return _tJumpDown > 0;
-  }
-
 
   /**
    * コンストラクタ
@@ -260,7 +252,11 @@ class Player extends Token {
     }
     if(Input.on.DOWN) {
       // 飛び降りる
-      _tJumpDown = TIMER_JUMPDOWN;
+      Floor.setAllowCollisionsAll(false);
+      new FlxTimer().start(0.2, function(_) {
+        // コリジョンを有効化
+        Floor.setAllowCollisionsAll(true);
+      });
     }
     else if(Input.press.A) {
       // ジャンプ
@@ -323,11 +319,6 @@ class Player extends Token {
 
     // アニメタイマー更新
     _tAnim++;
-
-    // 飛び降りタイマー更新
-    if(_tJumpDown > 0) {
-      _tJumpDown--;
-    }
 
     // ダメージタイマー更新
     if(_tDamage > 0) {

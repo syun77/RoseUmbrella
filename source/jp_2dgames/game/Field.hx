@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.Floor;
 import jp_2dgames.lib.DirUtil.Dir;
 import jp_2dgames.game.token.Pit;
 import jp_2dgames.game.token.Spike;
@@ -41,7 +42,7 @@ class Field {
   // チップ番号
   static inline var CHIP_NONE:Int   = 0;  // 何もなし
   static inline var CHIP_WALL:Int   = 1;  // 壁
-  static inline var CHIP_FLOOR:Int  = 2;  // 床
+  static inline var CHIP_FLOOR:Int  = 2;  // 一方通行床
   static inline var CHIP_BLOCK:Int  = 3;  // ブロック
   static inline var CHIP_PLAYER:Int = 9;  // プレイヤー
   static inline var CHIP_SPIKE:Int  = 10; // トゲ
@@ -308,7 +309,7 @@ class Field {
       switch(v) {
         case CHIP_WALL:
         case CHIP_FLOOR:
-          //Floor.add(x, y);
+          Floor.add(x, y);
         case CHIP_BLOCK:
           BrickBlock.add(x, y);
         case CHIP_SPIKE:

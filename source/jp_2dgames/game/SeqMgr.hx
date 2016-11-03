@@ -60,6 +60,7 @@ class SeqMgr {
     // 地形グループに登録
     _terrain = new FlxGroup();
     _terrain.add(_walls);
+    _terrain.add(Floor.parent);
     _terrain.add(BrickBlock.parent);
 
     // オブジェクト管理に登録
@@ -110,8 +111,6 @@ class SeqMgr {
 
     // 雨 vs 地形
     FlxG.collide(Raindrop.parent, _terrain, _RainVsTerrain);
-
-    //    FlxG.collide(_player, Floor.parent, _PlayerVsFloor);
     FlxG.overlap(_player, _door.spr, _PlayerVsDoor);
 
   }
@@ -158,23 +157,10 @@ class SeqMgr {
     }
   }
 
-  // 傘 vs カベ
-  function _UmbrellaVsWall(umbrella:Umbrella, xgrid:Int, ygrid:Int):Void {
-    if(umbrella.dir == Dir.Down) {
-      // 傘を消す
-      umbrella.close();
-      _player.jumpByUmbrella();
-    }
-  }
-
   // 雨 vs 地形
   function _RainVsTerrain(rain:Raindrop, terrain:FlxObject):Void {
     // 雨を消す
     rain.vanish();
-  }
-
-  // プレイヤー vs 一方通行床
-  function _PlayerVsFloor(player:Player, floor:Floor):Void {
   }
 
   // プレイヤー vs ゴール
