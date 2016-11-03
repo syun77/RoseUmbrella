@@ -33,9 +33,8 @@ class RainCloud extends Token {
    **/
   public function new() {
     super();
-#if debug
     makeGraphic(16, 16, FlxColor.GRAY);
-#end
+    visible = false;
   }
 
   /**
@@ -52,8 +51,13 @@ class RainCloud extends Token {
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
 
+    if(isOnScreen() == false) {
+      // 画面外では何もしない
+      return;
+    }
+
     if(_canEmit) {
-      Raindrop.add(xcenter, ycenter, 270, 200);
+      Raindrop.add(xcenter, ycenter, 270, 50);
       _canEmit = false;
       new FlxTimer().start(0.2, function(_) {
         _canEmit = true;
