@@ -22,7 +22,7 @@ class Global {
 
   public static function addLevel():Bool {
     _level++;
-    return true; // TODO:
+    return _level > MAX_LEVEL;
   }
 
   public static function addLife(v:Int):Void {

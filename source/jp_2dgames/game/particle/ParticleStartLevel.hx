@@ -22,7 +22,7 @@ class ParticleStartLevel {
 
     // テキスト
     var txt = new FlxText(0, FlxG.height*0.3, FlxG.width, 'LEVEL ${Global.level}');
-    if(Global.level == Global.MAX_LEVEL-1) {
+    if(Global.level == Global.MAX_LEVEL) {
       txt.text = "FINAL LEVEL";
     }
 
