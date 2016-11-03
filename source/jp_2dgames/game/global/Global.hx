@@ -8,12 +8,13 @@ class Global {
 
   public static inline var MAX_LEVEL:Int = 3;
   public static inline var MAX_LIFE:Int = 100;
+  public static inline var START_LEVEL:Int = 3;
 
   static var _level:Int = 1;
   static var _life:Int = MAX_LIFE;
 
   public static function initGame():Void {
-    _level = 1;
+    _level = START_LEVEL;
   }
 
   public static function initLevel():Void {
