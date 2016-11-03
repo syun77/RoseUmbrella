@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.Hint;
 import jp_2dgames.game.token.Floor;
 import jp_2dgames.lib.DirUtil.Dir;
 import jp_2dgames.game.token.Pit;
@@ -46,7 +47,7 @@ class Field {
   static inline var CHIP_BLOCK:Int  = 3;  // ブロック
   static inline var CHIP_PLAYER:Int = 9;  // プレイヤー
   static inline var CHIP_SPIKE:Int  = 10; // トゲ
-  static inline var CHIP_ENEMY:Int  = 11; // 敵
+  static inline var CHIP_HINT:Int   = 11; // ヒント
   static inline var CHIP_GOAL:Int   = 12; // ゴール
   static inline var CHIP_SECRET_BLOCK:Int  = 15; // 隠しブロック
   static inline var CHIP_TRIGGER_SPIKE_DOWN:Int = 16; // 停止しているトゲを落とす
@@ -314,6 +315,8 @@ class Field {
           BrickBlock.add(x, y);
         case CHIP_SPIKE:
           Spike.add(x, y);
+        case CHIP_HINT:
+          Hint.add(x, y);
         case CHIP_RAIN_CLOUD:
           RainCloud.add(x, y);
         case CHIP_ITEM:

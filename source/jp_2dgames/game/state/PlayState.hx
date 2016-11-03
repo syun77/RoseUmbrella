@@ -1,5 +1,7 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.token.Hint;
+import jp_2dgames.game.gui.MessageUI;
 import jp_2dgames.game.token.Floor;
 import jp_2dgames.game.token.Pit;
 import flixel.addons.transition.FlxTransitionableState;
@@ -67,6 +69,9 @@ class PlayState extends FlxTransitionableState {
     // ブロック作成
     BrickBlock.createParent(this);
 
+    // ヒント
+    Hint.createParent(this);
+
     // プレイヤー生成
     var player:Player;
     {
@@ -110,6 +115,9 @@ class PlayState extends FlxTransitionableState {
     // GUI生成
     this.add(new GameUI());
 
+    // メッセージ
+    MessageUI.createInstance(this);
+
     // シーケンス管理生成
     _seq = new SeqMgr(player, field, door);
 
@@ -134,12 +142,14 @@ class PlayState extends FlxTransitionableState {
 
     Floor.destroyParent();
     BrickBlock.destroyParent();
+    Hint.destroyParent();
     RainCloud.destroyParent();
     Raindrop.destroyParent();
     Spike.destroyParent();
     Pit.destroyParent();
     Particle.destroyParent();
     ParticleBmpFont.destroyParent();
+    MessageUI.destroyInstance();
     Input.destroyVirtualPad();
 
     super.destroy();

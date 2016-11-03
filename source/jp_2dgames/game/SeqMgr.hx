@@ -1,5 +1,6 @@
 package jp_2dgames.game;
 
+import jp_2dgames.game.token.Hint;
 import jp_2dgames.game.token.Pit;
 import jp_2dgames.game.token.Spike;
 import jp_2dgames.game.token.RainCloud;
@@ -69,6 +70,7 @@ class SeqMgr {
     _entities.add(BrickBlock.parent);
     _entities.add(Spike.parent);
     _entities.add(Pit.parent);
+    _entities.add(Hint.parent);
   }
 
   /**
@@ -148,6 +150,7 @@ class SeqMgr {
       if(Std.is(entity, Raindrop)) { (cast entity).interact(subject); } // 雨粒
       if(Std.is(entity, Spike))    { (cast entity).interact(subject); } // 鉄球
       if(Std.is(entity, Pit))      { (cast entity).interact(subject); } // ピット
+      if(Std.is(entity, Hint))     { (cast entity).interact(subject); } // ヒント
     }
     else if(Std.is(subject, Umbrella)) {
 

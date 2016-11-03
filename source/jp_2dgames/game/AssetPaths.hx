@@ -11,4 +11,7 @@ class AssetPaths {
   public static inline var IMAGE_SPIKE  = "assets/images/spike.png";
   public static inline var IMAGE_PIT    = "assets/images/pit.png";
   public static inline var IMAGE_FLOOR  = "assets/images/floor.png";
+  public static inline var IMAGE_HINT   = "assets/images/hint.png";
+
+  public static inline var FONT = "assets/fonts/PixelMplus10-Regular.ttf";
 }
