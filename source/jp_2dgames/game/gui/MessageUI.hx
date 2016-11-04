@@ -49,7 +49,7 @@ class MessageUI extends FlxSpriteGroup {
     _txt = new FlxText(0, 0, FlxG.width);
     _txt.setFormat(AssetPaths.FONT, 10, FlxColor.WHITE, FlxTextAlign.CENTER);
     _txt.screenCenter(FlxAxes.Y);
-    _txt.y -= 8;
+    _txt.y -= 6;
     this.add(_txt);
 
     scrollFactor.set();
