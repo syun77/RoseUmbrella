@@ -22,7 +22,7 @@ class TitleState extends FlxTransitionableState {
     var bg = new FlxSprite(0, FlxG.height*0.2);
     bg.makeGraphic(FlxG.width, 32, FlxColor.GRAY);
     this.add(bg);
-    var txt = new FlxText(0, FlxG.height*0.2, FlxG.width, "Umbrella");
+    var txt = new FlxText(0, FlxG.height*0.2, FlxG.width, "Rose Umbrella");
     txt.setFormat(null, FONT_SIZE, FlxColor.WHITE, "center", FlxTextBorderStyle.OUTLINE, 0xFF3c3c3c);
     this.add(txt);
     new FlxTimer().start(3, function(timer:FlxTimer) {
