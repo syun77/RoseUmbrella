@@ -52,9 +52,9 @@ class Hint extends Token {
    **/
   public function interact(player:Player):Void {
     var tbl = [
-      "↑＋Xで傘を上に出します",
-      "傘を出すと空中でジャンプできます",
-      "ジャンプ中に↓で下方向に傘を出します",
+      "↑＋Xで傘を上に出します\n(↑＋X to put on the umbrella upwards)",
+      "傘を出すと空中でジャンプできます\n(Putting on the umbrella, you can Double JUMP)",
+      "ジャンプ中に↓で下方向に傘を出します\n(In the air, ↓ to umbrella downwards)",
       ""
     ];
 

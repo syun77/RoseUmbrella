@@ -41,7 +41,7 @@ class MessageUI extends FlxSpriteGroup {
     super();
 
     _bg = new FlxSprite();
-    _bg.makeGraphic(FlxG.width, 16, FlxColor.BLACK);
+    _bg.makeGraphic(FlxG.width, 32, FlxColor.BLACK);
     _bg.alpha = 0.5;
     _bg.screenCenter(FlxAxes.Y);
     this.add(_bg);
@@ -49,6 +49,7 @@ class MessageUI extends FlxSpriteGroup {
     _txt = new FlxText(0, 0, FlxG.width);
     _txt.setFormat(AssetPaths.FONT, 10, FlxColor.WHITE, FlxTextAlign.CENTER);
     _txt.screenCenter(FlxAxes.Y);
+    _txt.y -= 8;
     this.add(_txt);
 
     scrollFactor.set();
