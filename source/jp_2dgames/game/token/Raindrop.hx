@@ -1,5 +1,6 @@
 package jp_2dgames.game.token;
 
+import jp_2dgames.game.particle.ParticleRain;
 import flixel.FlxObject;
 import jp_2dgames.lib.MyMath;
 import flixel.FlxState;
@@ -68,6 +69,7 @@ class Raindrop extends Token {
    * 雨粒消滅
    **/
   public function vanish():Void {
+    ParticleRain.add(xcenter, ycenter);
     kill();
   }
 
@@ -77,7 +79,7 @@ class Raindrop extends Token {
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
 
-    angle = MyMath.atan2Ex(velocity.y, velocity.x);
+    //angle = MyMath.atan2Ex(velocity.y, velocity.x);
   }
 
 

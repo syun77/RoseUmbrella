@@ -1,5 +1,6 @@
 package jp_2dgames.game.state;
 
+import jp_2dgames.game.particle.ParticleRain;
 import jp_2dgames.lib.TextUtil;
 import jp_2dgames.game.token.Hint;
 import jp_2dgames.game.gui.MessageUI;
@@ -113,6 +114,7 @@ class PlayState extends FlxTransitionableState {
     // パーティクル生成
     Particle.createParent(this);
     ParticleBmpFont.createParent(this);
+    ParticleRain.createParent(this);
 
     // GUI生成
     this.add(new GameUI());
@@ -155,6 +157,7 @@ class PlayState extends FlxTransitionableState {
     Pit.destroyParent();
     Particle.destroyParent();
     ParticleBmpFont.destroyParent();
+    ParticleRain.destroyParent();
     MessageUI.destroyInstance();
     Input.destroyVirtualPad();
 
